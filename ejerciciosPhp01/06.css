@@ -1,0 +1,18 @@
+
+
+table{
+    border: black 1px solid;
+    border-collapse: collapse;
+}
+td{
+    border: 1px solid black;
+}
+.primaryHead{
+    background-color: blue;
+    color: white;
+    font-size: large;
+    text-align: center;
+}
+.secondaryTable{
+    color:grey;
+}
