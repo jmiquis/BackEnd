@@ -1,3 +1,15 @@
+td{
+    border: 1px solid black;
+}
 table{
-    background-color: aqua;
+    border: 1px solid black;
+}
+.franja1{
+    background-color: red;
+}
+.franja2{
+    background-color: blue;
+}
+.franja3{
+    background-color: green;
 }
