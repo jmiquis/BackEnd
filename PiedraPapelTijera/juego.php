@@ -10,7 +10,6 @@ define ('PIEDRA1',  "&#x1F91C;");
             $jugador2=generaNumero();
             $pinta2=pintaSalida2($jugador2);
             $tirada=tirada($jugador1,$jugador2);
-            sumaResultados($tirada,$contador1,$contador2);
             $arrayColores=colorResultado($tirada);
             $mensaje=generaMensajeVictoria($tirada);
          //evalua los numeros obtenidos
