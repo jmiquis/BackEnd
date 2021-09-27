@@ -23,6 +23,7 @@
   <body>
         <table>
             <th colspan="2">generacion 50 valores aleatorios</th>
+
                 <?php for ($i=0; $i <count($arrayNombres) ; $i++):?>
                     <tr>
                         <td><?= $arrayNombres[$i]?></td>
