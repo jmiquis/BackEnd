@@ -59,4 +59,65 @@
         }
             $media=$suma/TOTAL;
             $arrayNumeros=[0=>$menor,1=>$mayor,2=>$media];
+
+            //ejercicio 5
+            function generarHTMLTable ( $filas, $columnas, $borde,$contenido){
+                echo("<table border='$borde'>");
+                for ($i=0; $i <$filas ; $i++) {
+                    echo("<tr border='$borde'>");
+                    for ($j=0; $j < $columnas ; $j++) {
+                        echo("<td border='$borde'> $contenido </td>");
+                    }
+                    echo("</tr>");
+                }
+                echo("</table>");
+            }
+
+            //ejercicio 6
+            function pintaAlmenas($numeroAlmenas){
+
+                for ($i=0; $i < 3; $i++) {
+                   for ($j=0;$j <$numeroAlmenas; $j++){
+                        if ($i!=2) {
+                            echo("****&nbsp;");
+                        }
+                        else{
+                            echo("*****");
+                        }
+                   }
+                   echo("<br>");
+                }
+            }
+            //7.1
+
+            function construyeTabla(){
+                for ($i=0; $i <10 ; $i++) {
+                    echo("<tr>");
+                   for ($j=0; $j < 10; $j++) {
+                       $color=generaColor();
+                        echo("
+                        <td style='background-color:$color'></td>
+                        ");
+                   }
+                   echo("</tr>");
+                }
+
+            }
+
+           function generaColor(){
+                $numeroColor=random_int(1,5);
+                switch ($numeroColor) {
+                    case 1:
+                       return "red";
+                    case 2:
+                       return "blue";
+                    case 3:
+                       return "green";
+                    case 4:
+                       return "red";
+                    case 5:
+                       return "white";
+                }
+            }
+
 ?>

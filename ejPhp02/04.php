@@ -11,7 +11,7 @@
       <?php require_once('funcionesvar.php');?>
       <style>
           table,td,tr{
-              border: 1px solid black;
+              border:<?=$borde?>;
               border-collapse: collapse;
           }
           th{
