@@ -10,7 +10,6 @@ define ('PIEDRA1',  "&#x1F91C;");
             $jugador2=generaNumero();
             $pinta2=pintaSalida2($jugador2);
             $tirada=tirada($jugador1,$jugador2);
-            sumaResultados($tirada,$contador1,$contador2);
             $arrayColores=colorResultado($tirada);
             $mensaje=generaMensajeVictoria($tirada);
          //evalua los numeros obtenidos
@@ -46,17 +45,7 @@ define ('PIEDRA1',  "&#x1F91C;");
 
         }
     }
-        //suma a los marcadores el ganador
-    function sumaResultados($resultado, &$contador1,&$contador2){
-       switch ($resultado) {
-           case 1:
-                $contador1++;
-               break;
-           case 2:
-               $contador2++;
-                break;
-       }
-    }
+        
     function generaNumero(){
         return random_int(1,3);
     }
