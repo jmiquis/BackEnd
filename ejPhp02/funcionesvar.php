@@ -94,7 +94,7 @@
                 for ($i=0; $i <10 ; $i++) {
                     echo("<tr>");
                    for ($j=0; $j < 10; $j++) {
-                       $color=generaColor();
+                       $color=generaColor1();
                         echo("
                         <td style='background-color:$color'></td>
                         ");
@@ -104,7 +104,7 @@
 
             }
 
-           function generaColor(){
+           function generaColor1(){
                 $numeroColor=random_int(1,5);
                 switch ($numeroColor) {
                     case 1:
@@ -118,6 +118,9 @@
                     case 5:
                        return "white";
                 }
+            }
+            function generaColor2(){
+            return $rcolor = "rgb(" . random_int(0, 255) . "," . random_int(0, 255) . "," . random_int(0, 255) . ")";
             }
 
 ?>
