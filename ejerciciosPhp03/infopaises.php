@@ -44,8 +44,14 @@ $ciudades = [
     $poblacion=array_column($paises,"Poblacion");
     //ordeno el array de columnas por clave y cojo el primero. De ahi cojo el valor de capital que se ha mantenido del
     //ordeno con multisort
-    array_multisort($poblacion, SORT_DESC, $paises);
+    array_multisort($poblacion, SORT_ASC, $paises);
     return $paises;
   }
 $arrayPaises2=version2($paises);
+
+function hallarMayorv2($arrayPaises2,$ciudades){
+    $paisMasPoblado=array_key_last($arrayPaises2);
+    return $ciudades[$paisMasPoblado];
+}
+$resultado2=hallarMayorv2($arrayPaises2,$ciudades);
   ?>
