@@ -11,6 +11,6 @@
   </head>
   <body>-
     <!--version 1 <?= var_dump($arrayCiudades)?> -->
-    
+    <?=var_dump($arrayPaises2)?>
   </body>
   </html>
