@@ -27,7 +27,7 @@
                 <tr>
                     <?php $paisAlAzar=eligePaisesAlAlzar($paises);?>
                     <td><?=$paisAlAzar?></td>
-                    <!--pinto ciudad y capital -->
+                    <!--pinto capital y poblacion -->
                     <?php foreach ($paises[$paisAlAzar] as $key => $value):?>
                         <td><?=$value?></td>
                     <?php endforeach?>
