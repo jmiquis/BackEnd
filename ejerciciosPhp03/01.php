@@ -22,23 +22,27 @@ function hallaMinimo($array){
     }
     return $min;
 }
-function hallaMasRepetido($array){
+function hallaMasRepetido($array){  //se puede hacer con array_count_values()
     $aux=[];
     //recorre el array buscando el valor de $array en las claves de aux[]
-    for ($i=0; $i <count($array); $i++) {
-        $numero=$array[$i];
-        if (!array_key_exists($numero,$aux)) {
-          $aux[$numero]=1;
-        }
-        else{
-            $aux[$numero]++;
-        }
-    }
-    arsort($aux);
-     foreach ($aux as $key => $value) {
-        $devolver=$key;
-        return $devolver;
-     }
+    // for ($i=0; $i <count($array); $i++) {
+    //     $numero=$array[$i];
+    //     if (!array_key_exists($numero,$aux)) {
+    //       $aux[$numero]=1;
+    //     }
+    //     else{
+    //         $aux[$numero]++;
+    //     }
+    // }
+    // arsort($aux);
+    //  foreach ($aux as $key => $value) {
+    //     $devolver=$key;
+    //     return $devolver;
+    //  }
+    $arrayDeRepetidos=array_count_values($array);
+    asort($arrayDeRepetidos);
+    $elmas=array_key_last($arrayDeRepetidos);
+    return $elmas;
 }
 function pintaResultados(){
     $array=crearArray();

@@ -69,3 +69,11 @@ function mergearArrays($paises,$ciudades){
 }
 $arraymergeado=mergearArrays($paises,$ciudades);
 
+
+ function crearArrayTemperaturasYMeses(){
+  $arrayTemperaturas=[ 6, 10, 12, 14,16 ,20 ,25 , 30, 18, 15, 14, 8];
+  $arrayMeses=["Enero","Ferbrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+  return array_combine( $arrayMeses, $arrayTemperaturas);
+}
+
+$ArrayTemperaturasYMeses=crearArrayTemperaturasYMeses();
