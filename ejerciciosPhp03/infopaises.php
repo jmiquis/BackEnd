@@ -42,16 +42,30 @@ $ciudades = [
   function version2($paises){
     //obtengo array de columnas (valores de poblacion).
     $poblacion=array_column($paises,"Poblacion");
-    //ordeno el array de columnas por clave y cojo el primero. De ahi cojo el valor de capital que se ha mantenido del
+    //ordeno el array de columnas por clave y cojo el primero.
     //ordeno con multisort
     array_multisort($poblacion, SORT_ASC, $paises);
     return $paises;
   }
 $arrayPaises2=version2($paises);
 
+//Halla la primera clave
 function hallarMayorv2($arrayPaises2,$ciudades){
     $paisMasPoblado=array_key_last($arrayPaises2);
     return $ciudades[$paisMasPoblado];
 }
 $resultado2=hallarMayorv2($arrayPaises2,$ciudades);
-  ?>
+
+//me devuelve un array con dos claves al azar
+function eligePaisesAlAlzar($paises){
+  return array_rand($paises);
+}
+
+
+//genera un array mergeado si esxsiten las mismas claves
+function mergearArrays($paises,$ciudades){
+  return array_merge_recursive($paises,$ciudades);
+
+}
+$arraymergeado=mergearArrays($paises,$ciudades);
+
