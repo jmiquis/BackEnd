@@ -23,7 +23,7 @@
                 <th>Ciudades</th>
                 <th>Enlace Google Maps</th>
             </tr>
-            <?php for($i=0;$i<2;$i++):?>
+            <?php for($i=0;$i<2;$i++):?> <!-- este ciclo hace que pinte dos lineas y elija 2 paises-->
                 <tr>
                     <?php $paisAlAzar=eligePaisesAlAlzar($paises);?>
                     <td><?=$paisAlAzar?></td>
