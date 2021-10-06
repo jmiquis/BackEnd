@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 //genera un array de una fila para poner las posiciones de la tabla.Todas las posiciones se inicializan a [3,3]
 function posicionesIni(){
@@ -41,10 +42,9 @@ function eliminaRepetidas(&$posiciones){
     for($i=0;$i<count($posiciones)-1;$i++){
         if($posiciones[$i]===$posiciones[$i+1]){
             if (is_array($posiciones[$i])) {
-                $aleatorios=array_rand([0,1,2],2);//para evitar valores repetidos
                 do{
                     for ($j=0; $j <count($posiciones[$i+1]) ; $j++) {
-
+                        $aleatorios=array_rand([0,1,2],2);//para evitar valores repetidos
                         $posiciones[$i+1][$j]=$aleatorios[$j];
                     }
                 }while($posiciones[$i]===$posiciones[$i+1]);
@@ -89,5 +89,26 @@ foreach ($posiciones as $key => $value) {
 }
 }
 rellenaCarton($carton,$posiciones);
-var_dump($carton);
 ?>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <?php foreach ($carton as $key => $value):?>
+            <tr>
+                <?php foreach($value as $clave=>$valor):?>
+                    <td>
+                        <?=$valor?>
+                    </td>
+                <?php endforeach?>
+            </tr>
+        <?php endforeach?>
+    </table>
+</body>
+</html>
