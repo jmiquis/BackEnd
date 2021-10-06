@@ -87,24 +87,25 @@ function generaAleatorios($columna){
     $final=($columna==0)?9:$inicio+9;
     $aleatorio=[];
     for ($i=$inicio,$indice=0; $i <=$final ; $i++,$indice++) {
-        $aleatorio[$i]=$indice;
+        $aleatorio[$i]=$indice;//coge las claves
     }
-    return array_rand($aleatorio,2);
+    return array_rand($aleatorio,2);//da las claves aleatorias ORDENADAS que es lo que interesa
 }
 //recorre el array de posiciones pintando uno o dos numeros en el carton
 function rellenaCarton(&$carton,$posiciones){
-foreach ($posiciones as $key => $value) {
+foreach ($posiciones as $key => $value) { //si es array llama a un metodo auxiliar
     $columna=$key;
     if (is_array($value)) {
         $aleatorios=generaAleatorios($columna);
         for ($i=0; $i <count($value) ; $i++) {
             $fila=$value[$i];
-            $carton[$fila][$columna]=$aleatorios[$i];
+            $numero=$aleatorios[$i];
+            $carton[$fila][$columna]=$numero;
         }
     }
     else{
         $fila=$value;
-        $numero=($columna===0)?random_int(1,10):random_int(($columna*10),$columna*10+9);
+        $numero=($columna==0)?random_int(1,9):random_int((($columna+1)*10),(($columna+1)*10));
         $carton[$fila][$columna]=$numero;
     }
 }
