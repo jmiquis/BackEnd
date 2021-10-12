@@ -2,8 +2,7 @@
 <?php
 const ARRAYPASSWORDS=["Jorge"=>"1234",
                       "Luis"=>"contraseña",
-                      "Pedro"=>"hola"
-                                    ];
+                      "Pedro"=>"hola"];
 $nombre="";
 $password="";
 main();
