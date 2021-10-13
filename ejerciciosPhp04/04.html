@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+  <body>
+    <form action="04.php" method="post">
+    Campos de texto: <br>
+      nombre: <input type="text" name="nombre" id=""><br>
+      contraseña: <input type="password" name="password" required><br>
+      <hr>
+      <br>
+      RADIO <br>
+      rojo: <input type="radio" name="semaforo" value="rojo"><br>
+      naranja:
+      <input type="radio" name="semaforo" id="" value="naranja" ><br>
+      verde: <input type="radio" name="semaforo" id="" value="verde"><br>
+      <hr>
+      <br>
+      checkbox: <br>
+      quiero recibir publicidad: <input type="checkbox" name="publicidad"><br>
+      multicheckbox: <br>
+      ingles <input type="checkbox" name="idioma[]" id="" value="ingles">
+      frances <input type="checkbox" name="idioma[]" id="" value="frances">
+      aleman <input type="checkbox" name="idioma[]" id="" value="aleman">
+      <br><hr><br>
+      SELECT
+      <br>
+      simple <br><br>
+
+      año de finalizacion de estudios:
+      <select name="finalizacion">
+        <option>2015</option>
+        <option>2016</option>
+        <option>2017</option>
+        <option>2018</option>
+      </select>
+      <br><br>
+      multiple
+
+      <select name="ciudades[]" size="3" multiple><br>
+        <option value="28">Madrid</option>
+        <option value="08">Barcelona</option>
+        <option value="46">Valencia</option>
+        <option value="48">Bilbao</option>
+        <option value="17">Gerona</option>
+        <option value="41">Sevilla</option>
+        <option value="30">Murcia</option>
+        <option value="36">Pontevedra</option>
+      </select><br>
+
+      textarea:
+      <br><br><br>
+      <textarea name="cajaTexto" id="" cols="30" rows="10"></textarea>
+      <br> <br>
+
+      botones
+  <input type="reset" name="reset" id="" value="resetear el formulario">
+  <input type="submit" name="submit" id="" value="enviar formulario">
+</form>
+</body>
+</html>
