@@ -8,7 +8,11 @@
     $year=$_POST["finalizacion"];
     $codigosPostales=devulveCodigosPostales();
     $comentario=(isset($_POST["cajaTexto"]))?$_POST["cajaTexto"]:"el usuario no agrega comentarios";
+
+    
     main($nombre,$password,$semaforo,$publicidad,$idioma,$year,$codigosPostales,$comentario);
+
+
     function main($nombre,$password,$semaforo,$publicidad,$idioma,$year,$codigosPostales,$comentario){
         echo("
                 usuario: $nombre <br>
