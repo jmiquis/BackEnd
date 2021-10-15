@@ -1,0 +1,8 @@
+Realizar el  programa  que muestre un formulario web que permita el envío de uno,  dos o tres ficheros de imágenes que se guardarán un directorio  llamado imgusers no accesible por web.  Crear el directorio y darle los permisos adecuados. El programa  mostrará el formulario (GET) o lo procesará (POST)
+
+El programa PHP debe controlar:
+
+El tamaño máximo de los ficheros no puede superar los 200 Kbytes cada uno y entre los tres no mas de 300  Kbytes.
+Se puede enviar uno, dos o tres ficheros simultáneamente.
+Los ficheros tienes que ser o JPG o PNG no se admiten otros formatos.
+La aplicación NO  debe permitir subir ficheros cuyo nombres ya exista en el directorio de imágenes.
