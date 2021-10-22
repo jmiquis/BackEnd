@@ -10,7 +10,7 @@
         body{
             font-size: 30px;
         }
-        table,tr,td{
+        table,tr,td,th{
             border: 1px solid black;
             border-collapse: collapse;
         }
@@ -64,7 +64,7 @@
          }
          return $array;
     }
-    //
+    //se dan valores a los elementos del array
     function generaArraySemanas($fecha){
        $segundosFecha=strtotime($fecha);// se pasa a segundos la fecha
        $finDeMes=date('t',$segundosFecha);
