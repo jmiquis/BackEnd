@@ -1,0 +1,1 @@
+<p><textarea name="traduccion" id="" cols="30" rows="10"><?=traducir($_POST["comentario"]);?></textarea></p>
