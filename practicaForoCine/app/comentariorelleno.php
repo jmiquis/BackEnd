@@ -11,6 +11,7 @@ Comentario: <br>
 <p><input type="submit" name="orden" value="traducir"></p>
 traducir comentario al :  <select name="idioma" id="">
   <option value="en" default>ingles</option>
+  <option value="fr">frances</option>
   <option value="it">italiano</option>
   <option value="pt">portugues</option>
   <option value="sv">sueco</option>
