@@ -5,18 +5,15 @@ El programa ofrecerá en todo momento la posibilidad de generar una nueva partid
 
 <?php
     session_start();
+
     //si los intentos estan en session se cogen de ahi. Si no son 5
     $_SESSION["intentos"]=(isset($_SESSION["intentos"]))?$_SESSION["intentos"]:5;
-
     //si no existe el numero en sesion se crea
     $_SESSION["numero"]=(isset( $_SESSION["numero"]))? $_SESSION["numero"]:random_int(1,20);
     //lo mismo con la variable que da mensajes de estado
     $_SESSION["mensaje"]=(isset($_SESSION["mensaje"]))?$_SESSION["mensaje"]:"";
 
-    function evaluaNumero($numeroAleatorio,$numeroUsuario){
-        $mensaje="";
-        return $mensaje=($numeroUsuario>$numeroAleatorio)?"tiene que ser mas bajo":"tiene que ser mas alto";
-    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +35,12 @@ El programa ofrecerá en todo momento la posibilidad de generar una nueva partid
 
     <?php if(isset($_GET["orden"])):?>
         <?php
+
+            function evaluaNumero($numeroAleatorio,$numeroUsuario){
+                $mensaje="";
+                return $mensaje=($numeroUsuario>$numeroAleatorio)?"tiene que ser mas bajo":"tiene que ser mas alto";
+            }
+
             switch ($_GET["orden"]) {
                 case 'reset':
                     // Cierra la sesion
