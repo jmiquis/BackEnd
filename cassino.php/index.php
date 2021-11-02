@@ -35,8 +35,8 @@
                         $_SESSION["parImpar"]=$_POST["parImpar"];
                         $_SESSION["apuesta"]=$_POST["apuesta"];
                     //tirada
-                    require_once("app/tirada.php");
                     $_SESSION["dinero"]=(tiradaCasino($_SESSION["parImpar"]))?$_SESSION["dinero"]+$_SESSION["apuesta"]:$_SESSION["dinero"]-$_SESSION["apuesta"];
+                    require_once("app/tirada.php");
                     unset($_SESSION["apuesta"]);
                     }
                     break;
