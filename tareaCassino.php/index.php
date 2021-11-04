@@ -15,7 +15,7 @@
       require_once("app/entrada.php");
       if (compruebaDinero()) {
           $_SESSION["dinero"]=$_GET["dinero"];
-          $nvisitas++;
+
           setcookie("visitas", $nvisitas, time() + 30*24*3600);
           header("location:index.php");
       }
@@ -23,32 +23,27 @@
     }
     else {
         //apuesta
-
-        if (!isset($_SESSION["apuesta"])||!isset($_SESSION["parImpar"])) {
-            require_once("app/apuesta.php");
-
+        require_once("app/apuesta.php");
         if (isset($_POST["orden"])) {
             switch ($_POST["orden"]) {
 
                 case 'hacer apuesta':
-                    if (gestionaApuesta() && compruebaParImpar()){
-                        $_SESSION["parImpar"]=$_POST["parImpar"];
-                        $_SESSION["apuesta"]=$_POST["apuesta"];
-                    //tirada
-                    $_SESSION["dinero"]=(tiradaCasino($_SESSION["parImpar"]))?$_SESSION["dinero"]+$_SESSION["apuesta"]:$_SESSION["dinero"]-$_SESSION["apuesta"];
-                    require_once("app/tirada.php");
-                    unset($_SESSION["apuesta"]);
+                            if(gestionaApuesta() && compruebaParImpar()){
+                            $_SESSION["parImpar"]=$_POST["parImpar"];
+                            $_SESSION["apuesta"]=$_POST["apuesta"];
+                            tiradaCasino($_SESSION["parImpar"]);
+                            header("location:index.php");
                     }
                     break;
 
 
 
-               case "dejar el casino":
-
-                mensajeDespedida();
-                break;
+                    case "dejar el casino":
+                        $nvisitas++;
+                        mensajeDespedida();
+                        break;
             }
-        }
+
         }
         if ($_SESSION["dinero"]<=0) {
             die("Lo sentimos, ha perdido todo su dinero");

@@ -14,5 +14,6 @@
         <input type="submit" name="orden" value="hacer apuesta">
         <input type="submit" name="orden" value="dejar el casino">
     </p>
+    <p><?=(isset($_SESSION["mensaje"]))?$_SESSION["mensaje"]:"";?></p>
     </form>
 

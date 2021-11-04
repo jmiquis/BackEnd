@@ -54,23 +54,15 @@
         //tirada
         function tiradaCasino($parImpar){
             $numero=random_int(1,100);
-            $mensaje=($numero%2==0)?"salio par":"salio impar";
-            echo("<br>$mensaje<br>");
-
-            if ($numero%2==0) {
-                if ($parImpar=="par") {
-                    echo("<br> enorabuena ha acertado <br>");
-                    return true;
-                }
+            if ($parImpar="par" && $numero%2==0 || $parImpar=="impar" && $numero%2!=0) {
+                $_SESSION["mensaje"]="Enhorabuena, ha ganado";
+                $_SESSION["dinero"]+=$_SESSION["apuesta"];
             }
             else {
-                if ($parImpar=="impar") {
-                    echo("<br>enorabuena ha acertado<br>");
-                    return true;
-                }
+                $_SESSION["mensaje"]="Lo sentimos, ha perdido";
+                $_SESSION["dinero"]-=$_SESSION["apuesta"];
             }
-            echo("<br> Lo sentimos. Ha fallado<br>");
-            return false;
+
         }
 
 ?>
