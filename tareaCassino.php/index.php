@@ -1,10 +1,11 @@
 <?php
     session_start();
 
-    $nvisitas = 0;
+    $nvisitas = 1;
     if (isset($_COOKIE["visitas"])){
         $nvisitas = $_COOKIE["visitas"];
     }
+
 
    require_once("app/funciones.php");
 
@@ -36,10 +37,9 @@
                     }
                     break;
 
-
-
                     case "dejar el casino":
                         $nvisitas++;
+                        setcookie("visitas",$nvisitas,time()+300);
                         mensajeDespedida();
                         break;
             }
