@@ -28,14 +28,14 @@
         if (isset($_POST["orden"])) {
             switch ($_POST["orden"]) {
 
-                case 'hacer apuesta':
-                            if(gestionaApuesta() && compruebaParImpar()){
-                            $_SESSION["parImpar"]=$_POST["parImpar"];
-                            $_SESSION["apuesta"]=$_POST["apuesta"];
-                            tiradaCasino($_SESSION["parImpar"]);
-                            header("location:index.php");
-                    }
-                    break;
+                    case 'hacer apuesta':
+                        if(gestionaApuesta() && compruebaParImpar()){
+                        $_SESSION["parImpar"]=$_POST["parImpar"];
+                        $_SESSION["apuesta"]=$_POST["apuesta"];
+                        tiradaCasino($_SESSION["parImpar"]);
+                        header("location:index.php");
+                        }
+                        break;
 
                     case "dejar el casino":
                         $nvisitas++;

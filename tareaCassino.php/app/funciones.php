@@ -2,7 +2,7 @@
 
 
         //cantidad de dinero ok
-        function checkeoDinero($cantidad){
+        function checkeoDinero(int|float $cantidad):bool{
             $cantidad=intval($cantidad);
             return !empty($cantidad) && is_numeric($cantidad) && $cantidad>0;
         }
