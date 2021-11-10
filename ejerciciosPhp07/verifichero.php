@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-<form enctype="multipart/form-data" action="verifichero.php" method="POST">
+<form action="verifichero.php" method="POST">
 inserte la ruta del archivo a mostrar:
 <p><input type="text" name="archivo" id=""> </p>
 <p><input type="submit" name="boton" value="obtener contenido"></p>
@@ -39,7 +39,6 @@ inserte la ruta del archivo a mostrar:
     //se cierra
     fclose($flujotxt);
 }
-
 ?>
 
 </body>
