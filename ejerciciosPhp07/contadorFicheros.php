@@ -13,17 +13,27 @@ $visitasLocales++;
 setcookie("visitasLocales",$visitasLocales,time()+300);
 
 //si existe y se puede leer el archivo se le da valor a la variable
-if(is_readable($archivoContador)){
-    if(!$visitasGlobales=@file_get_contents($archivoContador)){
-        die("error al leer el archivo $archivoContador");
-    }
+
+if (is_readable($archivoContador) or die("error al leer el archivo"))  {
+    
 }
 
-$visitasGlobales++;
 
-if(!@file_put_contents($archivoContador,$visitasGlobales)){
-    die("error al leer el archivo $archivoContador");
-}
+
+
+
+// if(is_readable($archivoContador)){
+//     if(!$visitasGlobales=@file_get_contents($archivoContador)){
+//         die("error al leer el archivo $archivoContador");
+//     }
+// }
+
+
+
+
+// if(!@file_put_contents($archivoContador,$visitasGlobales)){
+//     die("error al leer el archivo $archivoContador");
+// }
 ?>
 
 <!DOCTYPE html>
