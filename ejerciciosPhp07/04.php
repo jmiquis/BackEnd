@@ -23,7 +23,7 @@ if (isset($_GET["boton"]) && isset($_GET["directorio"])) {
         if (pathinfo($ruta,PATHINFO_EXTENSION)==="php") {
             $archivoPhp=file($ruta); //se convierte a array
             $contadorLineas+=count($archivoPhp);//suma lineas del archivo al contador total
-            echo("<table>");
+            echo("<table style='border: 1px solid black'>");
             echo("<tr><td>el archivo $ruta tiene ".count($archivoPhp)." lineas de codigo</td></tr>");
             echo("</table>");
         }
@@ -51,6 +51,5 @@ if (isset($_GET["boton"]) && isset($_GET["directorio"])) {
     <p>introduzca el nombre del directorio: <input type="text" name="directorio"></p>
     <p><input type="submit" name="boton" value="empezar"></p>
    </form>
-
 </body>
 </html>
