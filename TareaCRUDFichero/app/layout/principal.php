@@ -15,7 +15,7 @@
 <?= $contenido ?>
 <form>
 <input type="submit" name="orden" value="Nuevo">
-<input type="submit" name="orden" value="Terminar">
+<input type="button" name="orden" value="Terminar" onclick="confirmarTerminar()">
 </form>
 </div>
 </div>

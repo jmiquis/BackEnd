@@ -14,7 +14,7 @@
 <p> Datos del usuario: </p>
 <form   method="POST">
 <table>
- <tr><td>Nombre </td> 
+ <tr><td>Nombre </td>
  <td>
  <input type="text" 	name="nombre" f	value="<?=$nombre ?>"       <?= ($orden == "Detalles")?"readonly":"" ?> size="20" autofocus></td></tr>
  <tr><td>Login   </td> <td>
@@ -26,10 +26,9 @@
  </table>
  <input type="submit"	 name="orden" 	value="<?=$orden?>">
  <button onclick="window.history.back();"> Volver </button>
-</form> 
+</form>
 </div>
 </div>
 </body>
 </html>
-
 
