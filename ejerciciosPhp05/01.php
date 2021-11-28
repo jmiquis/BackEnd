@@ -18,9 +18,7 @@ Para saber que letra le corresponde a un número, se obtiene el resto de dividir
 <?php else:?>
     <?php
         $numero=$_POST["numero"];
-        define("arrayLetras",
-                ['T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E']
-                );
+        define("arrayLetras",['T','R','W','A','G','M','Y','F','P','D','X','B','N','J','Z','S','Q','V','H','L','C','K','E']);
 
 
         function calcularLetra($numero){

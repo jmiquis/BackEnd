@@ -1,11 +1,13 @@
 <?php
 
-// $flujo=fopen("TareaCRUDFichero\dat\usuarios.csv","r+");
-// fputcsv($flujo,["jorge","miquis","kkisjje","poopkde"]);
-// fclose($flujo);
-$archi=file("TareaCRUDFichero\dat\usuarios.csv");
+$array=[
+    0=>[1,3,4],
+    1=>[1,2,1],
+    2=>[3,5,6]
+];
 
-$array=str_getcsv($archi[2]);
+$columna=array_column($array,1);
 
-echo("hi");
-?>
+array_multisort($array,SORT_ASC,$columna);
+
+echo "oko";
