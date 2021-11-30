@@ -27,12 +27,14 @@ for ($i=0; $i< count($parrilla); $i++){
 
 // Comienza la carrera !!!!
 do {
+
     for ($i = 0; $i < count($parrilla); $i++) {
         $parrilla[$i]->acelera(random_int(0, 20));
         $parrilla[$i]->recorre();
         $parrilla[$i]->frena(random_int(0,10));
         echo " <br> ".$parrilla[$i]->info();
     }
+    echo("=====================================================");
 
 } while ( ! alcanzarMeta ( $parrilla, META) );
 
@@ -43,6 +45,7 @@ ordenarClasificacion ( $parrilla);
 // Muestra la clasificación
 for($i=0; $i< count($parrilla); $i++){
     echo ($i+1)."º Clasificado ". $parrilla[$i]->info()."<br>";
+    echo("=====================================================");
 }
 
 // MÉTODOS AUXILIARES
@@ -50,12 +53,22 @@ for($i=0; $i< count($parrilla); $i++){
 
 function alcanzarMeta ( array $tcoches, int $distancia):bool{
     foreach ($tcoches as $key => $value) {
-        if($value->distanciaTotal>=$distancia) return true;
+        $distanciaRecorrida=$value->distanciaTotal;
+        if($distanciaRecorrida>=$distancia){
+            return true;
+        }
     }
    return false;
 }
 
 // Ordeno la tabla de objetos por los kilometros recorridos
-function ordenarClasificacion ( array $tcoches):void{
-    
+function ordenarClasificacion ( array &$tcoches):void{
+
+    $columna=array_map((fn($elemento)=>$elemento->distanciaTotal),$tcoches);
+
+    array_multisort($tcoches,SORT_DESC,$columna);
+
+    // usort($tcoches,fn($a, $b) => $a->distanciaParcial - $b->distanciaParcial);
+    // Otras indicando clase y método de clase para comparar
+    //usort($tcoches, array ("Coche","compara"));
 }

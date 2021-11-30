@@ -49,7 +49,7 @@ class Coche{
 
     public function frena ( int $cantidad):bool{
         if(!$this->motor){
-            $this->infoError("El coche no puede frenar por no estar arrancado");
+            $this->infoError("El coche no puede frenar por no estar arrancado <br>");
             return false;
         }
         $this->velocidad=($this->velocidad-$cantidad<0)?0:$this->velocidad-$cantidad;
@@ -58,7 +58,7 @@ class Coche{
 
     public function recorre ():bool{
         if(!$this->motor){
-            $this->infoError("El coche no puede moverse por no estar arrancado");
+            $this->infoError("El coche no puede moverse por no estar arrancado <br>");
             return false;
         }
 
@@ -78,15 +78,15 @@ class Coche{
     }
 
     public function getKilometros():int{
-        return $this->distanciaTotal;
+        return $this->distanciaParcial;
     }
 
     private function infoError( String $mensaje):void{
-        echo "<br>$mensaje<\br>";
+        echo "<br>$mensaje<br>";
     }
 
     public function __get($name){
-        return $name;
+        return $this->$name;
     }
 
     public function __set($name, $value){

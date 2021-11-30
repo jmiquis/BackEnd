@@ -13,7 +13,9 @@ foreach ($arrayDatos as $key => $value) {
 
 $arrayPrioridades=array_column($arrayDatos2,3);
 
-array_multisort($arrayDatos2,SORT_DESC,$arrayPrioridades);
+// array_multisort($arrayDatos2,SORT_DESC,$arrayPrioridades);
+
+usort($arrayDatos2,fn($prio1,$prio2)=>$prio1[3]-$prio2[3]);
 
 @file_put_contents("incidencias.txt","");
 
