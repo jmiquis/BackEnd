@@ -23,10 +23,6 @@
     }
 
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,11 +35,11 @@
 <legend>Sus frutas preferidas </legend>
 <label for="nombre">Lista de frutas:</label><br>
 <select name="listafrutas[]" multiple >
-<option value="Platano" <?=(in_array("Platano",$frutasSeleccionadas))?"selected":""?>>Platano</option>
-<option value="fresa" <?=(in_array("fresa",$frutasSeleccionadas))?"selected":""?> >fresa</option>
-<option value="Naranja" <?=(in_array("Naranja",$frutasSeleccionadas))?"selected":""?>>Naranja</option>
-<option value="Melón" <?=(in_array("Melón",$frutasSeleccionadas))?"selected":""?> >Melón</option>
-<option value="Manzana" <?=(in_array("Manzana",$frutasSeleccionadas))?"selected":""?>>Manzana</option>
+<option value="Platano"     <?=(in_array("Platano",$frutasSeleccionadas))   ?"selected":""?>>Platano   </option>
+<option value="fresa"       <?=(in_array("fresa",$frutasSeleccionadas))     ?"selected":""?>>fresa     </option>
+<option value="Naranja"     <?=(in_array("Naranja",$frutasSeleccionadas))   ?"selected":""?>>Naranja   </option>
+<option value="Melón"       <?=(in_array("Melón",$frutasSeleccionadas))     ?"selected":""?>>Melón     </option>
+<option value="Manzana"     <?=(in_array("Manzana",$frutasSeleccionadas))   ?"selected":""?>>Manzana   </option>
 </select>
 <input type="submit" name="boton" value=" Cambiar ">
 </fieldset>

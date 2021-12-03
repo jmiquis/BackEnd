@@ -28,25 +28,24 @@
 
         switch ($_GET["orden"]) {
             case 'Consultar':
-                $mensaje=consultar($_GET["nombre"]);
-                break;
+                    $mensaje=consultar($_GET["nombre"]);
+                    break;
 
             case 'Añadir':
-                if(!is_numeric($_GET["telefono"])){
-                    $mensaje="el telefono ha de ser numerico";
-                    break;
-                }
-                if(empty($_GET["nombre"])){
-                    $mensaje="el nombre no puede estar en blanco";
-                    break;
-                }
+                    if(!is_numeric($_GET["telefono"])){
+                        $mensaje="el telefono ha de ser numerico";
+                        break;
+                    }
+                    if(empty($_GET["nombre"])){
+                        $mensaje="el nombre no puede estar en blanco";
+                        break;
+                    }
 
-                $cadena=$_GET["nombre"].",".$_GET["telefono"];
-                $mensaje=anotar($cadena);
+                $cadena  =  $_GET["nombre"].",".$_GET["telefono"];
+                $mensaje =  anotar($cadena);
                 break;
 
         }
-
 
 
     }
@@ -61,12 +60,12 @@
 <form>
 <fieldset>
   <legend>Su agenda personal</legend>
-    <label for="nombre">Nombre:</label><br>
-    <input type='text' name='nombre' size=20 >
-    <input type='submit' name="orden" value="Consultar"><br>
-    <label for="telefono">Teléfono:</label><br>
-    <input type='tel' name='telefono' size=20>
-    <input type='submit' name="orden" value="Añadir">
+    <label for  ="nombre">Nombre:</label><br>
+    <input type ='text' name='nombre' size=20 >
+    <input type ='submit' name="orden" value="Consultar"><br>
+    <label for  ="telefono">Teléfono:</label><br>
+    <input type ='tel' name='telefono' size=20>
+    <input type ='submit' name="orden" value="Añadir">
 </fieldset>
 </form>
 <p><?=$mensaje?></p>
