@@ -81,15 +81,13 @@
 
 // }
 
-$connection=new mysqli("127.0.0.1:3306","root","root","sakila") or die("error al intentar abri la base de datos");
+$connection=new mysqli("127.0.0.1:3308","root","root","empresa") or die("error al intentar abrir la base de datos");
 
-$query="SELECT * FROM actor";
+$query="SELECT * FROM productos";
 
-if($queryLine=$connection->query($query)){
-    $result->data_seek(0);
 
-    while
-}
+
+
 
 echo($maria());
 
