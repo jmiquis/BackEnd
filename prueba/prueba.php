@@ -79,7 +79,7 @@
 //         file_put_contents("texto.txt",implode("|",$value)."\n",FILE_APPEND);
 // }
 
-// }
+// } -->
 
 $connection=new mysqli("127.0.0.1:3308","root","root","empresa") or die("error al intentar abrir la base de datos");
 
