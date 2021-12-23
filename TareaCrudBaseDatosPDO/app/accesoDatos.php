@@ -70,6 +70,7 @@ class AccesoDatos {
     public function getTodosProductos ():array {
         $arrayProductos = [];
         $this->stmt_productos->setFetchMode(PDO::FETCH_CLASS, 'Producto');
+
         if ( $this->stmt_productos->execute() ){
             while ( $producto = $this->stmt_productos->fetch()){
                $arrayProductos[]= $producto;
@@ -84,6 +85,7 @@ class AccesoDatos {
 
         $this->stmt_producto->setFetchMode(PDO::FETCH_CLASS, 'Producto');
         $this->stmt_producto->bindParam(':producto_no', $numeroProducto);
+
         if ( $this->stmt_producto->execute() ){
              if ( $obj = $this->stmt_producto->fetch()){
                 $producto= $obj;
@@ -96,10 +98,10 @@ class AccesoDatos {
     // UPDATE
     public function modificarProducto(Producto $producto):bool{
 
-        $this->stmt_modificarProducto->bindValue(':producto_no'     ,$producto->PRODUCTO_NO          );
-        $this->stmt_modificarProducto->bindValue(':descripcion'     ,$producto->DESCRIPCION          );
-        $this->stmt_modificarProducto->bindValue(':precio_actual'   ,$producto->PRECIO_ACTUAL        );
-        $this->stmt_modificarProducto->bindValue(':stock_disponible',$producto->STOCK_DISPONIBLE     );
+        $this->stmt_modificarProducto->bindValue(':producto_no'     , $producto->PRODUCTO_NO          );
+        $this->stmt_modificarProducto->bindValue(':descripcion'     , $producto->DESCRIPCION          );
+        $this->stmt_modificarProducto->bindValue(':precio_actual'   , $producto->PRECIO_ACTUAL        );
+        $this->stmt_modificarProducto->bindValue(':stock_disponible', $producto->STOCK_DISPONIBLE     );
         $this->stmt_modificarProducto->execute();
         return ($this->stmt_modificarProducto->rowCount () == 1)? true:false;
 

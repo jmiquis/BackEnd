@@ -81,13 +81,14 @@
 
 // } -->
 
-$connection=new mysqli("127.0.0.1:3308","root","root","empresa") or die("error al intentar abrir la base de datos");
+// $connection=new mysqli("127.0.0.1:3308","root","root","empresa") or die("error al intentar abrir la base de datos");
 
-$query="SELECT * FROM productos";
+// $query="SELECT * FROM productos";
 
+$pass = "secreto";
+$encPass = password_hash($pass,PASSWORD_BCRYPT,['cost' => 4]);
 
-
-
+$verify = password_verify($pass,$encPass);
 
 echo($maria());
 
