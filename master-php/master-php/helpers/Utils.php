@@ -79,7 +79,7 @@ class Utils{
 
 		while ($row = $result ->  fetch_array(MYSQLI_NUM) ){
 
-			$rolesArray [] = $row[0];
+			$rolArray [] = $row[0];
 
 		}
 
@@ -97,11 +97,7 @@ class Utils{
 		while ($row = $getAllEmailsStatementResult -> fetch_array(MYSQLI_NUM)) {
 			$emailArray[] = $row[0];
 		}
-
-
 		return $emailArray;
-
-
 	}
 
 
@@ -138,6 +134,22 @@ class Utils{
 	public static function checksNonAdminId($id){
 
 		return Self::isIdentity() && $_SESSION['identity']['id'] === $id;
+
+	}
+
+	public static function  checkFreeOrdersUser():array{
+
+		$usersWhithOpenOrders = [];
+		$database             = Database::connect();
+
+		$getUsersPendingOrders = $database->query(" SELECT DISTINCT usuario_id FROM pedidos WHERE  estado like 'confirm' or estado like 'preparation';");
+		if(!$getUsersPendingOrders)return false;
+
+
+		while($row = $getUsersPendingOrders->fetch_array()){
+			$usersWhithOpenOrders[] = $row[0];
+		}
+		return $usersWhithOpenOrders;
 
 	}
 

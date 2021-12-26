@@ -14,6 +14,7 @@ class usuarioController{
 		$usuario   = new Usuario();
 		$usuarios = $usuario->getAllUsers();
 
+
 		require_once 'views/usuario/gestion.php';
 	}
 
@@ -21,11 +22,11 @@ class usuarioController{
 	//añadido para funcionalidad 1->Jorge
 	public function userInfoManagement(){
 
-		$user   = new Usuario();
-		$userId = $_GET["id"];
-		$user   = $user->getOneUser($userId);
+		$user       = new Usuario();
+		$userId     = $_GET["id"];
+		$user       = $user->getOneUser($userId);
 		$rolesArray = Utils::getAllRoles();
-
+		$usuariosConPedidos=Utils::checkFreeOrdersUser();
 		require_once 'views/usuario/userInfoManagement.php';
 	}
 
@@ -89,7 +90,7 @@ class usuarioController{
 
 			}
 
-			if( $id && $nombre && $apellidos && $email &&(!in_array($email,Utils::getAllEmails()))){
+			if( $id || $nombre || $apellidos || $email &&(!in_array($email,Utils::getAllEmails()))){
 				$usuario  = new Usuario();
 				$usuario  = $usuario -> getOneUser($id);
 				$usuario -> setNombre     ($nombre   );
@@ -104,7 +105,7 @@ class usuarioController{
 				if($ok)$_SESSION['modified'] = "succesful";
 			}
 		}
-		header("Location:".base_url.'usuario/userInfoManagement&id='.$usuario->getId());
+		header("Location:".base_url.'usuario/userInfoManagement&id='.$id);
 	}
 
 	public function modifyPassword(){
@@ -133,7 +134,22 @@ class usuarioController{
 		header("Location:".base_url.'usuario/changeUserPassword&id='.$usuario->getId());
 	}
 
+	public function deleteUser(){
 
+		if(!Utils::isAdmin())return false;
+
+		$id = $_POST['deleteId'];
+		$_SESSION['UserManagementMsg'] = 'error al borrar usuario ';
+
+		$usuario = new Usuario();
+		$usuario = $usuario->getOneUser($id);
+
+			if($usuario->deleteUser($usuario->getId())){
+				$_SESSION['UserManagementMsg'] = 'usuario borrado con exito ';
+			}
+
+			header("Location:".base_url.'usuario/gestion');
+	}
 
 
 

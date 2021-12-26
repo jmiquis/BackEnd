@@ -4,6 +4,7 @@
 		<meta charset="utf-8" />
 		<title>Tienda de Camisetas</title>
 		<link rel="stylesheet" href="<?=base_url?>assets/css/styles.css" />
+		<script type="text/javascript" src="<?=base_url?>assets/javascript/functions.js"></script>
 	</head>
 	<body>
 		<div id="container">

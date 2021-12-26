@@ -73,7 +73,7 @@ class Usuario{
 	}
   //INSERT
 	public function save(){
-		$sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}', '{$this->getEmail()}', '{$this->getPassword()}', 'user', standardUser.jpg);";
+		$sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}', '{$this->getEmail()}', '{$this->getPassword()}', 'user', 'standardUser.jpg');";
 		$save = $this->db->query($sql);
 
 		$result = false;
@@ -96,11 +96,32 @@ class Usuario{
 
 
 		$statementModUser  = $this->db->prepare("UPDATE usuarios SET nombre=?,apellidos=?,email=?,rol=?, imagen=? WHERE id=?");
-		if($statementModUser == false) return false;
+		if(!$statementModUser) return false;
 		$statementModUser -> bind_param("sssssi",$nombre,$apellidos,$email,$rol,$imagen,$id);
 		$statementModUser -> execute();
 
 		return ($this->db->affected_rows  == 1) ? true : false;
+	}
+
+	//DELETE
+
+	public function deleteUser($id){
+
+		$statementDeleteUser = $this->db->prepare("DELETE FROM usuarios WHERE id=?");
+		if(!$statementDeleteUser)return false;
+		$statementDeleteUser->bind_param("i",$id);
+		$statementDeleteUser->execute();
+		$execution = $statementDeleteUser->affected_rows;
+
+		switch($execution){
+			case 1:
+				return true;
+
+			case -1:
+				$_SESSION['UserManagementMsg'] = $statementDeleteUser->error;
+				return false;
+		}
+
 	}
 
 	//Añadida para funcionalidad 1 por Jorge

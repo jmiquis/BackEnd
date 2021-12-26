@@ -42,8 +42,22 @@
     <input  name="imagen" type="file"/><br><br><br><br>
 
     <input type="submit" value="aceptar cambios datos usuario"  name="orden" class ="button button-gestion">
-
-
 </form>
+
+
+        <!-- eliminar usuario con confirmacion javascript . No aparece si el usuario tiene pedidos abiertos-->
+    <?php if(isset($_SESSION['admin'])):?>
+        <?php if(!(in_array($user->getId(),$usuariosConPedidos))):?>
+    <!-- crea un formulario por cada boton para eliminar -->
+
+    <form action="<?=base_url?>usuario/deleteUser" method="POST">
+        <input type="hidden" name="deleteId" value="<?=$user->getId()?>">
+        <input type="button"  name="accion" value="eliminar usuario" onclick="confirmDeleteUsers('<?=$user->getNombre()?>')">
+    </form>
+        <?php else :?>
+            <p>este usuario no puede ser borrado por tener pedidos abiertos</p>
+        <?php endif?>
+    <?php endif?>
+
 
     <button><a href="<?=base_url?>usuario/gestion"> volver </a></button>
