@@ -151,6 +151,33 @@ class usuarioController{
 			header("Location:".base_url.'usuario/gestion');
 	}
 
+	public function userOrdersManagement(){
+		$queryResults ="";
+
+		if(Utils::isAdmin() || (Utils::isIdentity() && Utils::checksNonAdminId($_GET['id']))){
+			$id      = $_GET['id'];
+			$usuario = new Usuario();
+			$usuario = $usuario->getOneUser($id);
+
+			if (isset($_POST['query'])) {
+
+
+
+			}
+		}
+	}
+
+	public function orderMngmtQueries($userId){
+
+		switch ($_POST['query']) {
+			case 'todos los pedidos':
+				
+				break;
+			case 'pedidos pendientes':
+
+				break;
+		}
+	}
 
 
 	public function login(){

@@ -69,51 +69,45 @@ class Utils{
 
 		return $value;
 	}
-	//devuleve todos los roles usados en la base de datos
-	public static function getAllRoles():array{
 
-		Self::isAdmin();
 
-		$result   = Database::connect()->query("SELECT DISTINCT rol from usuarios");
-		$rolArray = [];
+	private static function databaseElementsGetter(String $preparedQuery):array{
 
-		while ($row = $result ->  fetch_array(MYSQLI_NUM) ){
+		$resultArray       = [];
+		$database          = Database::connect();
+		$preaparedSttmnt   = $database->prepare("$preparedQuery");
 
-			$rolArray [] = $row[0];
+		if(!$preaparedSttmnt->execute()) return false;
+		$getElementsResult = $preaparedSttmnt->get_result();
 
-		}
+		while($row = $getElementsResult->fetch_array(MYSQLI_NUM)) $resultArray[] = $row[0];
 
-		return $rolArray;
+		return $resultArray;
+
 	}
 
-	public static function getAllEmails(){
+	public static function getAllRoles():array        {return Self::databaseElementsGetter("SELECT DISTINCT rol        FROM usuarios");}
 
-		$database   = Database::connect();
-		$emailArray = [];
-		$getAllEmailsStatement = $database -> prepare("SELECT DISTINCT email FROM usuarios;");
-		if(!$getAllEmailsStatement->execute())return false;
+	public static function getAllEmails():array       {return Self::databaseElementsGetter("SELECT DISTINCT email      FROM usuarios");}
 
-		$getAllEmailsStatementResult = $getAllEmailsStatement->get_result();
-		while ($row = $getAllEmailsStatementResult -> fetch_array(MYSQLI_NUM)) {
-			$emailArray[] = $row[0];
-		}
-		return $emailArray;
-	}
+	public static function checkFreeOrdersUser():array{return Self::databaseElementsGetter("SELECT DISTINCT usuario_id FROM pedidos WHERE  estado like 'confirm' or estado like 'preparation'");}
+
+	public static function getAllOrderStatus():array  {return Self::databaseElementsGetter("SELECT DISTINCT estado     FROM pedidos");}
+
 
 
 
 	//sube una imagen a la carpeta uploads y retorna su path
 	public static function uploadImage (String $nombreImagen) {
 		$file     = $_FILES[$nombreImagen];
-				$filename = $file['name'];
-				$mimetype = $file['type'];
+		$filename = $file['name'];
+		$mimetype = $file['type'];
 
 				if($mimetype == "image/jpg" || $mimetype == 'image/jpeg' || $mimetype == 'image/png' || $mimetype == 'image/gif'){
 
 					if(!is_dir('uploads/images')){
 						mkdir('uploads/images', 0777, true);
 					}
-
 
 					move_uploaded_file($file['tmp_name'], 'uploads/images/'.$filename);
 
@@ -137,21 +131,9 @@ class Utils{
 
 	}
 
-	public static function  checkFreeOrdersUser():array{
-
-		$usersWhithOpenOrders = [];
-		$database             = Database::connect();
-
-		$getUsersPendingOrders = $database->query(" SELECT DISTINCT usuario_id FROM pedidos WHERE  estado like 'confirm' or estado like 'preparation';");
-		if(!$getUsersPendingOrders)return false;
 
 
-		while($row = $getUsersPendingOrders->fetch_array()){
-			$usersWhithOpenOrders[] = $row[0];
-		}
-		return $usersWhithOpenOrders;
 
-	}
 
 
 }

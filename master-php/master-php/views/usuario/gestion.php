@@ -11,7 +11,7 @@
 
 
 <?php if (isset($usuarios)):?>
-
+    
         <table>
             <tr><th>Nombre de usuario</th><th>Apellidos</th><th>Rol</th><th>email</th><th>imagen</th></tr>
         <?php while ($usuario=$usuarios->fetch_object("Usuario")):?>
