@@ -17,17 +17,17 @@
 
 
     <!-- select desplegable para elegir roles entre los disponibles si el usuario es admin -->
-    <?php if ($_SESSION['admin']):?>
+    <?php if (isset($_SESSION['admin'])):?>
     ROL :
-    <select name="rol" id="">
+        <select name="rol" id="">
 
-        <?php for ($i = 0 ; $i < count( $rolesArray ) ; $i++  ):?>
-                                                        <!-- selecciona el rol por defecto y lo muestra -->
-                <option value="<?=$rolesArray[$i]?>" <?=($user->getRol()==$rolesArray[$i]) ? "selected" : ""?>><?=$rolesArray[$i]?></option>
+            <?php for ($i = 0 ; $i < count( $rolesArray ) ; $i++  ):?>
+                                                            <!-- selecciona el rol por defecto y lo muestra -->
+                    <option value="<?=$rolesArray[$i]?>" <?=($user->getRol()==$rolesArray[$i]) ? "selected" : ""?>><?=$rolesArray[$i]?></option>
 
-        <?php endfor ?>
+            <?php endfor ?>
 
-    </select>
+        </select>
 
     <?php endif?>
 

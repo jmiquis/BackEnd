@@ -31,9 +31,13 @@ class Usuario{
 	function getEmail() {
 		return $this->email;
 	}
-	//modificado para que devuelva la contraseña encriptada de la base de datos
+
 	function getPassword() {
 		return $this->password;
+	}
+
+	function getEncryptedPassword(){
+		return password_hash($this->db->real_escape_string($this->password), PASSWORD_BCRYPT, ['cost' => 4]);
 	}
 
 	function getRol() {
@@ -71,9 +75,12 @@ class Usuario{
 	function setImagen($imagen) {
 		$this->imagen = $imagen;
 	}
+
+
+
   //INSERT
 	public function save(){
-		$sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}', '{$this->getEmail()}', '{$this->getPassword()}', 'user', 'standardUser.jpg');";
+		$sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}', '{$this->getEmail()}', '{$this->getEncryptedPassword()}', 'user', 'standardUser.jpg');";
 		$save = $this->db->query($sql);
 
 		$result = false;
@@ -84,7 +91,7 @@ class Usuario{
 	}
 
 	//UPDATE
-	//añadido para funcionalidad 1->Jorge
+
 	public function modifyUser():bool{
 
 		$nombre    = $this -> getNombre();
@@ -124,16 +131,20 @@ class Usuario{
 
 	}
 
-	//Añadida para funcionalidad 1 por Jorge
 
-	public function getAllUsers():mysqli_result{
 
-		$users = $this->db->query("SELECT * FROM usuarios ORDER BY rol, id DESC");
 
-		return $users;
+
+	public function getAllUsers(){
+
+		$usersArray = [];
+		$users      = $this->db->query("SELECT * FROM usuarios ORDER BY rol, id DESC");
+		while($row = $users->fetch_object("Usuario"))$usersArray[] = $row;
+
+
+		return $usersArray;
 	}
 
-	//añadido para funcionalidad 1->Jorge
 	public function getOneUser(int $userId):Usuario{
 
 		$user = $this->db->query("SELECT * FROM usuarios WHERE id = $userId");
@@ -142,6 +153,46 @@ class Usuario{
 		return $user;
 
 	}
+
+		//rellenan los selectores para la busqueda filtrada
+	private function getDatabaseElementsByUser(String $statement){
+		$elementsArray    = [];
+		$id               = $this->getId();
+		$genericStatement = $this->db->prepare("$statement");
+		if(!$genericStatement) return false;
+
+		$genericStatement->bind_param("i",$id);
+		if(!$genericStatement->execute()) return false;
+
+		$getAllResults = $genericStatement->get_result();
+		while($row = $getAllResults->fetch_array(MYSQLI_NUM))$elementsArray[] = $row;
+
+		return $elementsArray;
+	}
+
+	public function getUserOrders()          {return $this->getDatabaseElementsByUser("SELECT *                  FROM pedidos WHERE usuario_id=?");}
+	public function getUserAdresses()        {return $this->getDatabaseElementsByUser("SELECT DISTINCT direccion FROM pedidos WHERE usuario_id=?");}
+	public function getUserRegions()         {return $this->getDatabaseElementsByUser("SELECT DISTINCT provincia FROM pedidos WHERE usuario_id=?");}
+	public function getUserAreas()           {return $this->getDatabaseElementsByUser("SELECT DISTINCT localidad FROM pedidos WHERE usuario_id=?");}
+	public function getUserOrdersStatus()    {return $this->getDatabaseElementsByUser("SELECT DISTINCT estado    FROM pedidos WHERE usuario_id=?");}
+
+	//busqueda filtrada
+	public function getOrderFilteredSearch($dataArray){
+		$ordersArray = [];
+		$id    =  $this->getId();
+		$query = "SELECT * FROM pedidos WHERE direccion LIKE ? AND provincia LIKE ? AND localidad LIKE ? AND coste <= ? AND estado LIKE ? AND datediff(?,fecha)>=0 AND usuario_id=?";
+		$preparedStatement = $this->db->prepare($query);
+		if(!$preparedStatement) return false;
+		$preparedStatement->bind_param("sssissi",$dataArray['adress'],$dataArray['region'],$dataArray['area'],$dataArray['orderCost'],$dataArray['status'],$dataArray['date'],$id);
+		if(!$preparedStatement->execute()) return false;
+		$getOrders = $preparedStatement->get_result();
+		while($row = $getOrders->fetch_array(MYSQLI_NUM))$ordersArray[] = $row;
+		return $ordersArray;
+	}
+
+
+
+
 
 
 	public function login(){
@@ -173,12 +224,10 @@ class Usuario{
 
 		$encriptedPassword = password_hash($password,PASSWORD_BCRYPT,['cost' => 4]);
 
-		$encriptedPassword = $this->db->real_escape_string($encriptedPassword);
-
 		$stm = $this->db->prepare("UPDATE usuarios SET password=? WHERE id=?");
 		if($stm == false) return false;
 
-		$stm -> bind_param("si",$encPass,$id);
+		$stm -> bind_param("si",$encriptedPassword,$id);
 		$stm -> execute();
 
 		return ($this->db->affected_rows  == 1) ? true : false;

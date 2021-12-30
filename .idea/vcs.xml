@@ -3,6 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/AlbertoInfo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/AlbertoInfo/php2021" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/BackEnd" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ejemploPOO/php2021" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/main" vcs="Git" />

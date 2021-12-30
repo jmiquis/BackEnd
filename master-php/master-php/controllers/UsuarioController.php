@@ -7,26 +7,26 @@ class usuarioController{
 		require_once 'views/usuario/registro.php';
 	}
 
-	//añadido para funcionalidad 1->Jorge
 	public function gestion(){
-		Utils::isAdmin();
-
 		$usuario   = new Usuario();
-		$usuarios = $usuario->getAllUsers();
 
-
+		if(isset($_SESSION['admin'])){
+			$usuarios   = $usuario->getAllUsers();
+		}
+		elseif(Utils::isIdentity()){
+			$usuarios[] = $usuario->getOneUser($_SESSION['identity']->id);
+		}
 		require_once 'views/usuario/gestion.php';
 	}
 
 
-	//añadido para funcionalidad 1->Jorge
 	public function userInfoManagement(){
 
-		$user       = new Usuario();
-		$userId     = $_GET["id"];
-		$user       = $user->getOneUser($userId);
-		$rolesArray = Utils::getAllRoles();
-		$usuariosConPedidos=Utils::checkFreeOrdersUser();
+		$user               = new Usuario();
+		$userId             = $_GET["id"];
+		$user               = $user->getOneUser($userId);
+		$rolesArray         = Utils::getAllRoles();
+		$usuariosConPedidos = Utils::checkFreeOrdersUser();
 		require_once 'views/usuario/userInfoManagement.php';
 	}
 
@@ -87,7 +87,6 @@ class usuarioController{
 				$_SESSION['modified'] = "unsuccesful";
 
 				$imagen   = Utils::uploadImage('imagen');
-
 			}
 
 			if( $id || $nombre || $apellidos || $email &&(!in_array($email,Utils::getAllEmails()))){
@@ -131,7 +130,7 @@ class usuarioController{
 
 			}
 		}
-		header("Location:".base_url.'usuario/changeUserPassword&id='.$usuario->getId());
+		header("Location:".base_url.'usuario/changeUserPassword&id='.$_REQUEST['id']);
 	}
 
 	public function deleteUser(){
@@ -152,30 +151,42 @@ class usuarioController{
 	}
 
 	public function userOrdersManagement(){
-		$queryResults ="";
+		$userOrdersQuery = [];
 
-		if(Utils::isAdmin() || (Utils::isIdentity() && Utils::checksNonAdminId($_GET['id']))){
-			$id      = $_GET['id'];
-			$usuario = new Usuario();
-			$usuario = $usuario->getOneUser($id);
+		if(isset($_SESSION['admin']) || (Utils::isIdentity() && Utils::checksNonAdminId($_REQUEST['id']))){
+
+			//si el id no se envia por get desde gestion se envia por post desde un hidden
+			$id          = $_REQUEST['id'];
+			$user        = new Usuario();
+			$user        = $user->getOneUser($id);
+			$tableHeader = ["<b>nº pedido</b>","<b>numero usuario</b>","<b>dirección</b>","<b>provincia</b>","<b>localidad</b>","<b>coste pedido</b>","<b>fecha</b>","<b>hora</b>","<b>estado</b>"];
 
 			if (isset($_POST['query'])) {
-
-
-
+				$userOrdersQuery = $this->userOrders($user);
 			}
 		}
+		require_once 'views/usuario/userOrdersManagement.php';
 	}
 
-	public function orderMngmtQueries($userId){
+	private function userOrders(Usuario $user){
 
 		switch ($_POST['query']) {
 			case 'todos los pedidos':
-				
-				break;
-			case 'pedidos pendientes':
+				return  $user->getUserOrders();
+			case 'busqueda filtrada':
+				$today     = getdate();
+				$todayDate = $today['year']. "-".$today['mon'].    "-".$today['mday'];
 
-				break;
+				$dataArray = [];
+				$dataArray['adress']    = $_POST['adress'];
+				$dataArray['region']    = $_POST['region'];
+				$dataArray['area']      = $_POST['area'];
+				$dataArray['orderCost'] = (!empty($_POST['orderCost']))?$_POST['orderCost']:"2147483647";
+				$dataArray['status']    = $_POST['status'];
+				$dataArray['date']      = (!empty($_POST['date'])) ? $_POST['date']:$todayDate;
+
+				return $user->getOrderFilteredSearch($dataArray);
+
 		}
 	}
 

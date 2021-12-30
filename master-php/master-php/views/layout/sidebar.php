@@ -44,6 +44,7 @@
 			<?php if(isset($_SESSION['identity'])): ?>
 				<li><a href="<?=base_url?>pedido/mis_pedidos">Mis pedidos</a></li>
 				<li><a href="<?=base_url?>usuario/logout">Cerrar sesión</a></li>
+				<li><a href="<?=base_url?>usuario/gestion"> Gestionar datos usuario</a></li>
 			<?php else: ?>
 				<li><a href="<?=base_url?>usuario/registro">Registrate aqui</a></li>
 			<?php endif; ?>

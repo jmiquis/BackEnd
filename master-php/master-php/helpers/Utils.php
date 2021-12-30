@@ -71,7 +71,7 @@ class Utils{
 	}
 
 
-	private static function databaseElementsGetter(String $preparedQuery):array{
+	private static function getDatabaseElements(String $preparedQuery):array{
 
 		$resultArray       = [];
 		$database          = Database::connect();
@@ -86,13 +86,21 @@ class Utils{
 
 	}
 
-	public static function getAllRoles():array        {return Self::databaseElementsGetter("SELECT DISTINCT rol        FROM usuarios");}
+	public static function getAllRoles():array{
+		return Self::getDatabaseElements("SELECT DISTINCT rol        FROM usuarios");
+	}
 
-	public static function getAllEmails():array       {return Self::databaseElementsGetter("SELECT DISTINCT email      FROM usuarios");}
+	public static function getAllEmails():array       {
+		return Self::getDatabaseElements("SELECT DISTINCT email      FROM usuarios");
+	}
 
-	public static function checkFreeOrdersUser():array{return Self::databaseElementsGetter("SELECT DISTINCT usuario_id FROM pedidos WHERE  estado like 'confirm' or estado like 'preparation'");}
+	public static function checkFreeOrdersUser():array{
+		return Self::getDatabaseElements("SELECT DISTINCT usuario_id FROM pedidos WHERE  estado like 'confirm' or estado like 'preparation'");
+	}
 
-	public static function getAllOrderStatus():array  {return Self::databaseElementsGetter("SELECT DISTINCT estado     FROM pedidos");}
+	public static function getAllOrderStatus():array  {
+		return Self::getDatabaseElements("SELECT DISTINCT estado     FROM pedidos");
+	}
 
 
 
@@ -127,12 +135,49 @@ class Utils{
 
 	public static function checksNonAdminId($id){
 
-		return Self::isIdentity() && $_SESSION['identity']['id'] === $id;
+		return Self::isIdentity() && $_SESSION['identity']->id === $id;
 
 	}
 
+	public static function printSQLTable($query,$header=null){
 
 
+		$retorno = "<table>";
+		if($header!==null){
+			$retorno .="<tr>";
+			foreach ($header as $key => $value) {
+				$retorno .= "<td>"."$value"."</td>";
+			}
+			$retorno .="</tr>";
+		}
+		foreach($query as $key=>$value){
+
+			$retorno .= "<tr>";
+			foreach ($value as $key2 => $value2) {
+				$retorno .= "<td>"."$value2"."</td>";
+			}
+			$retorno .="</tr>";
+		}
+		$retorno .= "</table>";
+		return $retorno;
+	}
+
+	// private function getDatabaseElement(String $select, String $table,$tablePK,$pkValue){
+	// 	$statement        = "SELECT ? FROM ? WHERE ?=?";
+
+	// 	$idType           = substr(gettype($pkValue),0,1);//obtiene la primera letra del tipo de la PK
+	// 	$elementsArray    = [];
+	// 	$genericStatement = $this->db->prepare("$statement");
+	// 	if(!$genericStatement) return false;
+
+	// 	$genericStatement->bind_param('sss'."$idType",$select,$table,$tablePK,$pkValue);
+	// 	if(!$genericStatement->execute()) return false;
+
+	// 	$getAllResults = $genericStatement->get_result();
+	// 	while($row = $getAllResults->fetch_array(MYSQLI_NUM))$elementsArray[] = $row;
+
+	// 	return $elementsArray;
+	// }
 
 
 
