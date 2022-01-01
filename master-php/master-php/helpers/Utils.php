@@ -122,6 +122,7 @@ class Utils{
 					return $filename;
 				}
 	}
+
 		//muestra error si el login en la pantalla de inicio no es correcto
 	public static function showsLoginErrorMsg(){
 		$msg="";
@@ -134,13 +135,13 @@ class Utils{
 	}
 
 	public static function checksNonAdminId($id){
-
-		return Self::isIdentity() && $_SESSION['identity']->id === $id;
-
+		if(Self::isIdentity() && $_SESSION['identity']->id === $id){
+			return true;
+		}
+		header("Location:".base_url);
 	}
 
 	public static function printSQLTable($query,$header=null){
-
 
 		$retorno = "<table>";
 		if($header!==null){
@@ -161,25 +162,6 @@ class Utils{
 		$retorno .= "</table>";
 		return $retorno;
 	}
-
-	// private function getDatabaseElement(String $select, String $table,$tablePK,$pkValue){
-	// 	$statement        = "SELECT ? FROM ? WHERE ?=?";
-
-	// 	$idType           = substr(gettype($pkValue),0,1);//obtiene la primera letra del tipo de la PK
-	// 	$elementsArray    = [];
-	// 	$genericStatement = $this->db->prepare("$statement");
-	// 	if(!$genericStatement) return false;
-
-	// 	$genericStatement->bind_param('sss'."$idType",$select,$table,$tablePK,$pkValue);
-	// 	if(!$genericStatement->execute()) return false;
-
-	// 	$getAllResults = $genericStatement->get_result();
-	// 	while($row = $getAllResults->fetch_array(MYSQLI_NUM))$elementsArray[] = $row;
-
-	// 	return $elementsArray;
-	// }
-
-
 
 }
 

@@ -28,10 +28,10 @@
                     <?=$user -> getEmail()    ?>
                 </td>
                 <td>
-                    <img src="<?=base_url?>uploads/images/<?= $user->getImagen()?>" name="imagenUser" alt="<?= $user->getImagen()?>" style="width: 3rem;">
+                    <img src="<?=base_url?>uploads/images/<?= $user->getImagen()?>" name="imagenUser" alt="<?= $user->getImagen()?>" id="imagenUsuarioMIni">
                 </td>
                 <td>
-                    <!-- cambio de contraseña. Solo aparece si es admin o el propio usuario-->
+                    <!-- cambio de contraseña-->
                 <?php if (isset($_SESSION['admin']) || Utils::checksNonAdminId($user->getId())):?>
                         <a href="<?=base_url?>usuario/changeUserPassword&id=<?=$user->getId()?>" class ="button button-gestion">cambiar contraseña</a>
                 <?php endif?>

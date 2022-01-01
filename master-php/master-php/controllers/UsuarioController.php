@@ -1,5 +1,6 @@
 <?php
 require_once 'models/Usuario.php';
+require_once 'helpers/direccion_habitual.php';
 
 class usuarioController{
 
@@ -11,7 +12,7 @@ class usuarioController{
 		$usuario   = new Usuario();
 
 		if(isset($_SESSION['admin'])){
-			$usuarios   = $usuario->getAllUsers();
+			$usuarios = $usuario->getAllUsers();
 		}
 		elseif(Utils::isIdentity()){
 			$usuarios[] = $usuario->getOneUser($_SESSION['identity']->id);
@@ -25,6 +26,7 @@ class usuarioController{
 		$user               = new Usuario();
 		$userId             = $_GET["id"];
 		$user               = $user->getOneUser($userId);
+		if(!isset($_SESSION['admin'])) Utils::checksNonAdminId($userId);
 		$rolesArray         = Utils::getAllRoles();
 		$usuariosConPedidos = Utils::checkFreeOrdersUser();
 		require_once 'views/usuario/userInfoManagement.php';
@@ -56,13 +58,22 @@ class usuarioController{
 				$usuario -> setEmail      ($email    );
 				$usuario -> setPassword   ($password );
 
+				if(!empty($_POST['defaultAdress']) && !empty($_POST['defaultRegion']) && !empty($_POST['defaultArea'])){
+					$defaultAdress = new Direccion_habitual();
+					$defaultAdress->provincia = $_POST['defaultRegion'];
+					$defaultAdress->localidad = $_POST['defaultArea'];
+					$defaultAdress->direccion = $_POST['defaultAdress'];
+				}
 
-				$save = $usuario->save();
 
-				if($save){
 
-					$_SESSION['register'] = "complete";
-
+				if ($defaultAdress->save()){
+					
+					$usuario->setDireccion($defaultAdress);
+					$save = $usuario->save();
+					if($save){
+						$_SESSION['register'] = "complete";
+					}
 				}
 			}
 		}
@@ -78,7 +89,7 @@ class usuarioController{
 			$apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : false;
 			$email 	   = isset($_POST['email'    ]) ? $_POST['email'    ] : false;
 			$rol       = isset($_POST["rol"      ]) ? $_POST["rol"      ] : false;
-			$imagen    = null;
+			$imagen    = false;
 
 
 			// Guardar la imagen
@@ -95,7 +106,10 @@ class usuarioController{
 				$usuario -> setNombre     ($nombre   );
 				$usuario -> setApellidos  ($apellidos);
 				$usuario -> setEmail      ($email    );
-				if ($usuario -> getImagen() !== $imagen && $imagen!== null) $usuario -> setImagen($imagen);
+
+				if($imagen == false) $imagen =  $usuario->getImagen();
+				$usuario -> setImagen($imagen);
+
 				if(isset($rol)) $usuario -> setRol($rol);
 
 
@@ -143,9 +157,9 @@ class usuarioController{
 		$usuario = new Usuario();
 		$usuario = $usuario->getOneUser($id);
 
-			if($usuario->deleteUser($usuario->getId())){
-				$_SESSION['UserManagementMsg'] = 'usuario borrado con exito ';
-			}
+		if($usuario->deleteUser($usuario->getId())){
+			$_SESSION['UserManagementMsg'] = 'usuario borrado con exito ';
+		}
 
 			header("Location:".base_url.'usuario/gestion');
 	}
@@ -207,7 +221,6 @@ class usuarioController{
 				if($identity->rol == 'admin'){
 					$_SESSION['admin'] = true;
 				}
-
 			}else{
 				$_SESSION['error_login'] = 'Identificación fallida !!';
 			}

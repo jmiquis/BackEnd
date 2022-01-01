@@ -4,7 +4,11 @@ require_once 'models/Usuario.php';
 class pedidoController{
 
 	public function hacer(){
-
+		$user = new Usuario();
+		if(isset($_SESSION['admin'])||Utils::checksNonAdminId($_SESSION['identity']->id)){
+			$user       = $user->getOneUser($_SESSION['identity']->id);
+			$userAdress = $user->getDireccion();
+		}
 		require_once 'views/pedido/hacer.php';
 	}
 

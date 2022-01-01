@@ -30,7 +30,7 @@ START TRANSACTION;
 CREATE TABLE `categorias` (
   `id` int NOT NULL,
   `nombre` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Volcado de datos para la tabla `categorias`
@@ -54,7 +54,7 @@ CREATE TABLE `lineas_pedidos` (
   `pedido_id` int NOT NULL,
   `producto_id` int NOT NULL,
   `unidades` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Volcado de datos para la tabla `lineas_pedidos`
@@ -103,7 +103,7 @@ CREATE TABLE `pedidos` (
   `estado` varchar(20) NOT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Volcado de datos para la tabla `pedidos`
@@ -136,7 +136,7 @@ CREATE TABLE `productos` (
   `oferta` varchar(2) DEFAULT NULL,
   `fecha` date NOT NULL,
   `imagen` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -170,7 +170,7 @@ CREATE TABLE `usuarios` (
   `password` varchar(255) NOT NULL,
   `rol` varchar(20) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 
 --
 -- Volcado de datos para la tabla `usuarios`

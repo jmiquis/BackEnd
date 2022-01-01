@@ -32,14 +32,12 @@
     <?php endif?>
 
     <!-- muestra la imagen en funcion de si existe o no el parametro -->
-    <?php if ($user->getImagen() != null): ?>
-				<img src="<?= base_url ?>uploads/images/<?= $user->getImagen()?>"name="imagenUser" style="width: 14rem;" />
-			<?php else: ?>
-				<img src="<?= base_url ?>uploads/images/standardUser.jpg" name="imagenUser" style="width: 14rem;"/>
-	<?php endif; ?>
+
+	<img src="<?= base_url ?>uploads/images/<?= $user->getImagen()?>"name="imagenUser" style="width: 14rem;" />
+
 
     seleccionar imagen:
-    <input  name="imagen" type="file"/><br><br><br><br>
+    <input name="imagen" type="file"/><br><br><br><br>
 
     <input type="submit" value="aceptar cambios datos usuario"  name="orden" class ="button button-gestion">
 </form>

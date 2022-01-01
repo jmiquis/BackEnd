@@ -1,5 +1,5 @@
 <?php
-
+require_once 'helpers/direccion_habitual.php';
 
 
 class Usuario{
@@ -11,6 +11,7 @@ class Usuario{
 	private $rol;
 	private $imagen;
 	private $db;
+	private $id_direccion_habitual;
 
 	public function __construct() {
 		$this->db = Database::connect();
@@ -76,12 +77,32 @@ class Usuario{
 		$this->imagen = $imagen;
 	}
 
+	function setDireccion(Direccion_habitual $direccion){
+		$this->id_direccion_habitual=$direccion->id_direccion_habitual;
+	}
+
+	public function getDireccion() : Direccion_habitual{
+
+		$stm  = $this->db->prepare("SELECT * FROM direccion_habitual WHERE id_direccion = ?");
+		$stm->bind_param("i",$this->id_direccion_habitual);
+		if(!$stm->execute())return false;
+		$result = $stm->get_result();
+
+		 return $row = $result->fetch_object("Direccion_habitual");
+
+
+		return $row;
+
+	}
+
+
 
 
   //INSERT
 	public function save(){
-		$sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}', '{$this->getEmail()}', '{$this->getEncryptedPassword()}', 'user', 'standardUser.jpg');";
+		$sql = "INSERT INTO usuarios VALUES(NULL, '{$this->getNombre()}', '{$this->getApellidos()}', '{$this->getEmail()}', '{$this->getEncryptedPassword()}', 'user', 'largaroja.jpg', '{$this->id_direccion_habitual}');";
 		$save = $this->db->query($sql);
+
 
 		$result = false;
 		if($save){
@@ -227,12 +248,13 @@ class Usuario{
 		$stm = $this->db->prepare("UPDATE usuarios SET password=? WHERE id=?");
 		if($stm == false) return false;
 
-		$stm -> bind_param("si",$encriptedPassword,$id);
+		$stm -> bind_param("si",$encPass,$id);
 		$stm -> execute();
 
 		return ($this->db->affected_rows  == 1) ? true : false;
 
 	}
+
 
 
 }
