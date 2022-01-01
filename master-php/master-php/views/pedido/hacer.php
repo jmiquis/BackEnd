@@ -8,13 +8,13 @@
 	<h3>Dirección para el envio:</h3>
 	<form action="<?=base_url.'pedido/add'?>" method="POST">
 		<label for="provincia">Provincia</label>
-		<input type="text" name="provincia" required value="<?=$userAdress->provinvia?>"/>
+		<input type="text" name="provincia" required value="<?=$userAdress->provincia?>"/>
 
 		<label for="ciudad">Ciudad</label>
-		<input type="text" name="localidad" required value="<?=$userAdress->localidad?>/>
+		<input type="text" name="localidad" required value="<?=$userAdress->localidad?>"/>
 
 		<label for="direccion">Dirección</label>
-		<input type="text" name="direccion" required value="<?=$userAdress->direccion_usuario?>/>
+		<input type="text" name="direccion" required value="<?=$userAdress->direccion?>"/>
 
 		<input type="submit" value="Confirmar pedido" />
 	</form>

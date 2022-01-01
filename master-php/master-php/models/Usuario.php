@@ -90,9 +90,6 @@ class Usuario{
 
 		 return $row = $result->fetch_object("Direccion_habitual");
 
-
-		return $row;
-
 	}
 
 

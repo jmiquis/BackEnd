@@ -8,7 +8,7 @@
        private int      $id_direccion_habitual;
        private String   $provincia;
        private String   $localidad;
-       private String   $direccion_usuario;
+       private String   $direccion;
 
        public function __construct(){
         $this->db = Database::connect();
@@ -22,7 +22,7 @@
        public function save(){
             $saveStm = $this->db->prepare("INSERT INTO direccion_habitual VALUES (NULL,?,?,?)");
             $saveStm->bind_param("sss",$this->provincia,$this->localidad,$this->direccion);
-            $saveStm->execute();
+            if($saveStm->execute());
             $this->id_direccion_habitual = $saveStm->insert_id;
             return ($this->db->affected_rows  == 1) ? true : false;
        }

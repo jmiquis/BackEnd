@@ -62,13 +62,13 @@ class usuarioController{
 					$defaultAdress = new Direccion_habitual();
 					$defaultAdress->provincia = $_POST['defaultRegion'];
 					$defaultAdress->localidad = $_POST['defaultArea'];
-					$defaultAdress->direccion = $_POST['defaultAdress'];
+					$defaultAdress->direccion_usuario = $_POST['defaultAdress'];
 				}
 
 
 
 				if ($defaultAdress->save()){
-					
+
 					$usuario->setDireccion($defaultAdress);
 					$save = $usuario->save();
 					if($save){
