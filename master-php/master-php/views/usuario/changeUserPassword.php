@@ -1,4 +1,3 @@
-<form action="<?=base_url?>usuario/changeUserPassword" method="post"></form>
 
 <h3>Usuario <?=$usuario -> getNombre()?></h3>
 

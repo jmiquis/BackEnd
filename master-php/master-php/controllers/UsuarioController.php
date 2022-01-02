@@ -36,9 +36,19 @@ class usuarioController{
 
 		$usuario = new Usuario();
 		$usuario = $usuario -> getOneUser($_GET['id']);
+		if(!isset($_SESSION['admin'])) Utils::checksNonAdminId($usuario->getId());
 
 		require_once 'views/usuario/changeUserPassword.php';
 
+	}
+
+	public function modifyAdress(){
+		$usuario    = new Usuario();
+		$usuario    = $usuario -> getOneUser($_GET['id']);
+		$userAdress = $usuario->getDireccion();
+		if(!isset($_SESSION['admin'])) Utils::checksNonAdminId($usuario->getId());
+
+		require_once 'views/usuario/modifyAdress.php';
 	}
 
 	public function save(){
@@ -64,9 +74,6 @@ class usuarioController{
 					$defaultAdress->localidad = $_POST['defaultArea'];
 					$defaultAdress->direccion_usuario = $_POST['defaultAdress'];
 				}
-
-
-
 				if ($defaultAdress->save()){
 
 					$usuario->setDireccion($defaultAdress);
@@ -83,7 +90,6 @@ class usuarioController{
 
 	public function modifyUser(){
 		if(isset($_POST)){
-
 			$id        = isset($_POST['id'       ]) ? $_POST["id"       ] : false;
 			$nombre    = isset($_POST['nombre'   ]) ? $_POST['nombre'   ] : false;
 			$apellidos = isset($_POST['apellidos']) ? $_POST['apellidos'] : false;
@@ -91,12 +97,9 @@ class usuarioController{
 			$rol       = isset($_POST["rol"      ]) ? $_POST["rol"      ] : false;
 			$imagen    = false;
 
-
 			// Guardar la imagen
 			if(isset($_FILES['imagen']) && count($_FILES)==1){
-
 				$_SESSION['modified'] = "unsuccesful";
-
 				$imagen   = Utils::uploadImage('imagen');
 			}
 
@@ -110,11 +113,11 @@ class usuarioController{
 				if($imagen == false) $imagen =  $usuario->getImagen();
 				$usuario -> setImagen($imagen);
 
-				if(isset($rol)) $usuario -> setRol($rol);
-
+				if(isset($rol)){
+					$usuario -> setRol($rol);
+				}
 
 				$ok = $usuario-> modifyUser();
-
 				if($ok)$_SESSION['modified'] = "succesful";
 			}
 		}
@@ -146,6 +149,22 @@ class usuarioController{
 		}
 		header("Location:".base_url.'usuario/changeUserPassword&id='.$_REQUEST['id']);
 	}
+
+	public function changeAdress(){
+		$_SESSION['adress_change']="error al cambiar dirección";
+
+		if(!empty($_POST['defaultAdress']) && !empty($_POST['defaultRegion'] && $_POST['defaultArea'])){
+			$user = new Usuario();
+			$user = $user->getOneUser($_POST['id']);
+			$defaultAdress = new Direccion_habitual();
+			$defaultAdress = $user->getDireccion();
+		}
+		if($defaultAdress->updateAdress($defaultAdress->id_direccion,$_POST['defaultRegion'],$_POST['defaultArea'],$_POST['defaultAdress'])){
+			$_SESSION['adress_change']="cambio correcto";
+		}
+		header("Location:".base_url.'usuario/modifyAdress&id='.$_REQUEST['id']);
+	}
+
 
 	public function deleteUser(){
 

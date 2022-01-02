@@ -252,6 +252,11 @@ class Usuario{
 
 	}
 
+	public function modifyAdress()
+	{
+		# code...
+	}
+
 
 
 }

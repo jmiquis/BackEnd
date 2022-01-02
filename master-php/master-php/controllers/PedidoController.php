@@ -14,18 +14,27 @@ class pedidoController{
 
 	public function add(){
 		if(isset($_SESSION['identity'])){
-			$usuario_id = $_SESSION['identity']->id;
+			$user          = new Usuario();
+			$user          = $user->getOneUser($_SESSION['identity']->id);
+			$defaultAdress = $user->getDireccion();
+
 			$provincia  = isset($_POST['provincia']) ? $_POST['provincia'] : false;
 			$localidad  = isset($_POST['localidad']) ? $_POST['localidad'] : false;
 			$direccion  = isset($_POST['direccion']) ? $_POST['direccion'] : false;
 
+			if(!empty($_POST['defaultAdress'])){
+				$provincia  = $defaultAdress->provincia;
+				$localidad  = $defaultAdress->localidad;
+				$direccion  = $defaultAdress->direccion;
+			}
+			
 			$stats = Utils::statsCarrito();
 			$coste = $stats['total'];
 
 			if($provincia && $localidad && $direccion){
 				// Guardar datos en bd
 				$pedido = new Pedido();
-				$pedido -> setUsuario_id ($usuario_id);
+				$pedido -> setUsuario_id  ($user->getId());
 				$pedido -> setProvincia   ($provincia);
 				$pedido -> setLocalidad   ($localidad);
 				$pedido -> setDireccion   ($direccion);

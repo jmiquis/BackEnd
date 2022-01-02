@@ -46,7 +46,7 @@ td{
 }
 
 table tr td img{
-    max-width:3px ;
+    max-width: 5rem ;
 }
 
 /*CONTAINER*/
@@ -422,11 +422,4 @@ button{
     float: left;
     padding:2px;
     margin: 7px;
-}
-
-
-
-
-#imagenUsuarioMIni{
-    width: 40px;
 }

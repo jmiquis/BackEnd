@@ -1,8 +1,7 @@
 <?php if (isset($_SESSION['pedido']) && $_SESSION['pedido'] == 'complete'): ?>
-	<h1>Tu pedido se ha confirmado</h1>
+	<h1>Confirmar compra</h1>
 	<p>
-		Tu pedido ha sido guardado con exito, una vez que realices la transferencia
-		bancaria a la cuenta 7382947289239ADD con el coste del pedido, será procesado y enviado.
+		Si aceptas el pedido se realizará una transferencia automatica al numero de cuenta ES002390994003948393.
 	</p>
 	<br/>
 	<?php if (isset($pedido)): ?>

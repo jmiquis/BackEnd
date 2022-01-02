@@ -17,21 +17,20 @@
 
 
     <!-- select desplegable para elegir roles entre los disponibles si el usuario es admin -->
-    <?php if (isset($_SESSION['admin'])):?>
+
     ROL :
         <select name="rol" id="">
-
+        <?php if (isset($_SESSION['admin'])):?>
             <?php for ($i = 0 ; $i < count( $rolesArray ) ; $i++  ):?>
                                                             <!-- selecciona el rol por defecto y lo muestra -->
                     <option value="<?=$rolesArray[$i]?>" <?=($user->getRol()==$rolesArray[$i]) ? "selected" : ""?>><?=$rolesArray[$i]?></option>
-
             <?php endfor ?>
-
+        <?php else:?>
+                <option value="<?=$user->getRol()?>" selected ><?=$user->getRol()?></option>
+    <?php endif?>
         </select>
 
-    <?php endif?>
-
-    <!-- muestra la imagen en funcion de si existe o no el parametro -->
+    <!--muestra la imagen-->
 
 	<img src="<?= base_url ?>uploads/images/<?= $user->getImagen()?>"name="imagenUser" style="width: 14rem;" />
 

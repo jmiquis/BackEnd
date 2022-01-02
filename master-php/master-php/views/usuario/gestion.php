@@ -41,6 +41,10 @@
                 <a href="<?=base_url?>usuario/userInfoManagement&id=<?=$user->getId()?>" class ="button button-gestion">gestion datos personales</a>
                 </td>
                 <td>
+                    <!-- HREF / lleva a otra pagina -->
+                <a href="<?=base_url?>usuario/modifyAdress&id=<?=$user->getId()?>" class ="button button-gestion">cambiar direccion por defecto</a>
+                </td>
+                <td>
                     <?php if (in_array($user->getId(),Utils::checkFreeOrdersUser())):?>
                         <a href="<?=base_url?>usuario/userOrdersManagement&id=<?=$user->getId()?>" class ="button button-gestion">gestion pedidos</a>
                     <?php else:?>

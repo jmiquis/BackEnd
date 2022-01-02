@@ -29,7 +29,7 @@
 
        //delete
        public function deleteAdress($id){
-            $statementDeleteAdress = $this->db->prepare("DELETE FROM direccion_habitual WHERE id_usuario= ?");
+            $statementDeleteAdress = $this->db->prepare("DELETE FROM direccion_habitual WHERE id_direccion= ?");
             if(!$statementDeleteAdress)return false;
 		    $statementDeleteAdress->bind_param("i",$id);
             $statementDeleteAdress->execute();
@@ -38,11 +38,11 @@
 
        //update
 
-       public function updateAdress($id_usuario,$provincia,$localidad,$direccion){
+       public function updateAdress($id_direccion,$provincia,$localidad,$direccion){
 
-            $statementUpdateAdress = $this->db->prepare("UPDATE direccion_habitual SET provincia=?,localidad=?,direccion=? WHERE id_usuario=?");
+            $statementUpdateAdress = $this->db->prepare("UPDATE direccion_habitual SET provincia=?,localidad=?,direccion=? WHERE id_direccion=?");
             if(!$statementUpdateAdress)return false;
-            $statementUpdateAdress->bind_param("sssi",$provincia,$localidad,$direccion,$id_usuario);
+            $statementUpdateAdress->bind_param("sssi",$provincia,$localidad,$direccion,$id_direccion);
             $statementUpdateAdress->execute();
             return ($this->db->affected_rows  == 1) ? true : false;
        }
