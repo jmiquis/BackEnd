@@ -12,6 +12,12 @@ class categoriaController{
 		require_once 'views/categoria/index.php';
 	}
 
+	public function categoriesManagement(){
+		$category = new Categoria();
+		$category = $category->getOneCategory($_GET['id']);
+		require_once 'views/categoria/categoriesManagement.php';
+	}
+
 	public function ver(){
 		if(isset($_GET['id'])){
 			$id = $_GET['id'];
@@ -45,5 +51,33 @@ class categoriaController{
 		}
 		header("Location:".base_url."categoria/index");
 	}
+
+	public function modifyCategory(){
+		if(isset($_POST) && isset($_POST['modify'])){
+			$category = new Categoria();
+			$_SESSION['category_change'] = "error en el cambio";
+					if(!empty($_POST['id']) && !empty($_POST['categoryName'])){
+						if($category->updateCategory($_POST['categoryName'],$_POST['id'])){
+							$_SESSION['category_change'] = "cambio correcto";
+						}
+					}
+		}
+		header("Location:".base_url."categoria/categoriesManagement&id=".$_POST['id']);
+	}
+
+	public function deleteCategory(){
+		if(isset($_POST)){
+			$category = new Categoria();
+			$_SESSION['category_change'] = "error al borrar";
+			$catId = $_POST['id'];
+			if($category->deleteCategory($catId)){
+				$_SESSION['category_change'] = "borrado ok";
+				header("Location:".base_url."categoria/index");
+				die();
+			}
+		}
+		header("Location:".base_url."categoria/categoriesManagement&id=".$_POST['id']);
+	}
+
 
 }

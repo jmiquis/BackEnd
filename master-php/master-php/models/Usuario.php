@@ -131,8 +131,7 @@ class Usuario{
 	//DELETE
 
 	public function deleteUser($id){
-
-		$statementDeleteUser = $this->db->prepare("DELETE FROM usuarios WHERE id=?");
+$statementDeleteUser = $this->db->prepare("DELETE FROM usuarios WHERE id=?");
 		if(!$statementDeleteUser)return false;
 		$statementDeleteUser->bind_param("i",$id);
 		$statementDeleteUser->execute();
@@ -146,6 +145,7 @@ class Usuario{
 				$_SESSION['UserManagementMsg'] = $statementDeleteUser->error;
 				return false;
 		}
+
 
 	}
 
@@ -252,10 +252,7 @@ class Usuario{
 
 	}
 
-	public function modifyAdress()
-	{
-		# code...
-	}
+
 
 
 

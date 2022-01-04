@@ -40,6 +40,7 @@ class usuarioController{
 
 		require_once 'views/usuario/changeUserPassword.php';
 
+
 	}
 
 	public function modifyAdress(){
@@ -73,15 +74,17 @@ class usuarioController{
 					$defaultAdress->provincia = $_POST['defaultRegion'];
 					$defaultAdress->localidad = $_POST['defaultArea'];
 					$defaultAdress->direccion_usuario = $_POST['defaultAdress'];
-				}
-				if ($defaultAdress->save()){
 
-					$usuario->setDireccion($defaultAdress);
-					$save = $usuario->save();
-					if($save){
-						$_SESSION['register'] = "complete";
+					if ($defaultAdress->save()){
+
+						$usuario->setDireccion($defaultAdress);
+						$save = $usuario->save();
+						if($save){
+							$_SESSION['register'] = "complete";
+						}
 					}
 				}
+
 			}
 		}
 		header("Location:".base_url.'usuario/registro');
@@ -167,12 +170,9 @@ class usuarioController{
 
 
 	public function deleteUser(){
-
-		if(!Utils::isAdmin())return false;
-
 		$id = $_POST['deleteId'];
 		$_SESSION['UserManagementMsg'] = 'error al borrar usuario ';
-
+		if(!isset($_SESSION['admin']))return false;
 		$usuario = new Usuario();
 		$usuario = $usuario->getOneUser($id);
 

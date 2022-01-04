@@ -24,7 +24,9 @@
 		<th>NOMBRE</th>
 		<th>PRECIO</th>
 		<th>STOCK</th>
+		<th>IMAGEN</th>
 		<th>ACCIONES</th>
+
 	</tr>
 	<?php while($pro = $productos->fetch_object()): ?>
 		<tr>
@@ -32,9 +34,10 @@
 			<td><?=$pro->nombre;?></td>
 			<td><?=$pro->precio;?></td>
 			<td><?=$pro->stock;?></td>
+			<td><img src="<?=base_url?>uploads/images/<?=$pro->imagen?>" alt=""></td>
 			<td>
-				<a href="<?=base_url?>producto/editar&id   = <?=$pro->id?>" class="button button-gestion">             Editar</a>
-				<a href="<?=base_url?>producto/eliminar&id = <?=$pro->id?>" class="button button-gestion button-red">Eliminar</a>
+				<a href="<?=base_url?>producto/editar&id=<?=$pro->id?>" class="button button-gestion">             Editar</a>
+				<a href="<?=base_url?>producto/eliminar&id=<?=$pro->id?>" class="button button-gestion button-red">Eliminar</a>
 			</td>
 		</tr>
 	<?php endwhile; ?>

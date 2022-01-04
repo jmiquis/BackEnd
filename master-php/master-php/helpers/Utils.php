@@ -101,6 +101,9 @@ class Utils{
 	public static function getAllOrderStatus():array  {
 		return Self::getDatabaseElements("SELECT DISTINCT estado     FROM pedidos");
 	}
+	public static function getCategoriesWithProducts(){
+		return Self::getDatabaseElements("SELECT DISTINCT categoria_id FROM productos");
+	}
 
 
 
@@ -162,6 +165,8 @@ class Utils{
 		$retorno .= "</table>";
 		return $retorno;
 	}
+
+
 
 }
 

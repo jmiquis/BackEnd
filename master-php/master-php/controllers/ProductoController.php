@@ -101,19 +101,50 @@ class productoController{
 		Utils::isAdmin();
 		if(isset($_GET['id'])){
 
-			$id   = $_GET['id'];
-			$edit = true;
-
+			$id       = $_GET['id'];
+			$edit     = true;
 			$producto = new Producto();
-			$producto -> setId($id);
+			$pro      = $producto->getOneProduct($id);
+			$cat      = new Categoria();
 
-			$pro      = $producto->getOne();
-
-			require_once 'views/producto/crear.php';
+			require_once 'views/producto/editar.php';
 
 		}else{
 			header('Location:'.base_url.'Producto/gestion');
 		}
+	}
+
+	public function modifyProduct(){
+		$_SESSION['change_product'] = "error en el cambio";
+		Utils::isAdmin();
+		$name            = isset($_POST['productName']) ? $_POST['productName'] : false;
+		$category_id     = isset($_POST['category'])    ? $_POST['category']    : false;
+		$cost            = isset($_POST['cost'])        ? $_POST['cost'    ]    : false;
+		$stock           = isset($_POST['stock'])       ? $_POST['stock'   ]    : false;
+		$deal            = isset($_POST['deal'])        ? $_POST['deal'    ]    : false;
+		$description     = isset($POST['description'])  ? $_POST['description'] : $name;
+		$image    = false;
+
+		if(isset($_FILES['imagen']) && count($_FILES)==1){
+			$_SESSION['product_change'] = "unsuccesful";
+			$imagen   = Utils::uploadImage('image');
+		}
+
+		if($name || $category_id || $cost || $cost || $deal){
+			$auxProduct = new Producto();
+			$auxProduct = $auxProduct->getOneProduct($_POST['id']);
+			$auxProduct->setNombre($name);
+			$auxProduct->setCategoria_id($category_id);
+			$auxProduct->setPrecio($cost);
+			$auxProduct->setStock($stock);
+			$auxProduct->setOferta($deal);
+			$auxProduct->setDescripcion($description);
+			if($image == false) $image = $auxProduct->getImagen();
+			$auxProduct->setImagen($image);
+			if($auxProduct->edit())$_SESSION['product_change'] = "cambio ok";
+		}
+		header("Location:".base_url.'producto/editar&id='.$_REQUEST['id']);
+
 	}
 
 	public function eliminar(){
@@ -137,5 +168,6 @@ class productoController{
 
 		header('Location:'.base_url.'Producto/gestion');
 	}
+
 
 }

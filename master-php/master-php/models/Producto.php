@@ -12,11 +12,11 @@ class Producto{
 	private $imagen;
 
 	private $db;
-	
+
 	public function __construct() {
 		$this->db = Database::connect();
 	}
-	
+
 	function getId() {
 		return $this->id;
 	}
@@ -93,7 +93,7 @@ class Producto{
 		$productos = $this->db->query("SELECT * FROM productos ORDER BY id DESC");
 		return $productos;
 	}
-	
+
 	public function getAllCategory(){
 		$sql = "SELECT p.*, c.nombre AS 'catnombre' FROM productos p "
 				. "INNER JOIN categorias c ON c.id = p.categoria_id "
@@ -102,56 +102,65 @@ class Producto{
 		$productos = $this->db->query($sql);
 		return $productos;
 	}
-	
+
 	public function getRandom($limit){
 		$productos = $this->db->query("SELECT * FROM productos ORDER BY RAND() LIMIT $limit");
 		return $productos;
 	}
-	
+
 	public function getOne(){
 		$producto = $this->db->query("SELECT * FROM productos WHERE id = {$this->getId()}");
 		return $producto->fetch_object();
 	}
-	
+
+	public function getOneProduct($id):Producto{
+		$getOneStm = $this->db->prepare("SELECT * FROM productos WHERE id = ?");
+		if(!$getOneStm)return false;
+		$getOneStm->bind_param("i",$id);
+		$getOneStm->execute();
+		return $getOneStm->get_result()->fetch_object("Producto");
+
+	}
+
 	public function save(){
 		$sql = "INSERT INTO productos VALUES(NULL, {$this->getCategoria_id()}, '{$this->getNombre()}', '{$this->getDescripcion()}', {$this->getPrecio()}, {$this->getStock()}, null, CURDATE(), '{$this->getImagen()}');";
 		$save = $this->db->query($sql);
-		
+
 		$result = false;
 		if($save){
 			$result = true;
 		}
 		return $result;
 	}
-	
+
 	public function edit(){
-		$sql = "UPDATE productos SET nombre='{$this->getNombre()}', descripcion='{$this->getDescripcion()}', precio={$this->getPrecio()}, stock={$this->getStock()}, categoria_id={$this->getCategoria_id()}  ";
-		
+		$sql = "UPDATE productos SET nombre='{$this->getNombre()}', descripcion='{$this->getDescripcion()}', precio={$this->getPrecio()}, stock={$this->getStock()}, categoria_id={$this->getCategoria_id()}, oferta = '{$this->getOferta()}' ";
+
 		if($this->getImagen() != null){
 			$sql .= ", imagen='{$this->getImagen()}'";
 		}
-		
+
 		$sql .= " WHERE id={$this->id};";
-		
-		
+
+
 		$save = $this->db->query($sql);
-		
+
 		$result = false;
 		if($save){
 			$result = true;
 		}
 		return $result;
 	}
-	
+
 	public function delete(){
 		$sql = "DELETE FROM productos WHERE id={$this->id}";
 		$delete = $this->db->query($sql);
-		
+
 		$result = false;
 		if($delete){
 			$result = true;
 		}
 		return $result;
 	}
-	
+
 }
