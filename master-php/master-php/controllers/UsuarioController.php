@@ -106,7 +106,7 @@ class usuarioController{
 				$imagen   = Utils::uploadImage('imagen');
 			}
 
-			if( $id || $nombre || $apellidos || $email &&(!in_array($email,Utils::getAllEmails()))){
+			if( $id && $nombre && $apellidos && $email &&(!in_array($email,Utils::getAllEmails()))){
 				$usuario  = new Usuario();
 				$usuario  = $usuario -> getOneUser($id);
 				$usuario -> setNombre     ($nombre   );

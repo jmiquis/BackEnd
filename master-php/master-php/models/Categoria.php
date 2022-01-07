@@ -44,6 +44,7 @@ class Categoria{
 		$getOneStm->close();
 		return $category;
 	}
+	
 
 
 	//insert

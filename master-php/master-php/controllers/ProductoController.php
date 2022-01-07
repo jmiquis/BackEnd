@@ -1,5 +1,6 @@
 <?php
 require_once 'models/Producto.php';
+require_once 'helpers/direccion_habitual.php';
 
 class productoController{
 
@@ -37,6 +38,15 @@ class productoController{
 	public function crear(){
 		Utils::isAdmin();
 		require_once 'views/producto/crear.php';
+	}
+
+	public function salesManagement(){
+		Utils::isAdmin();
+		$mostSold    = Utils::getMostSoldProduct();
+		$notSold     = Utils::getNotSoldProducts();
+		$noStockProd = Utils::getNoStockProducts();
+
+		require_once 'views/producto/salesManagement.php';
 	}
 
 	public function save(){
@@ -122,15 +132,14 @@ class productoController{
 		$cost            = isset($_POST['cost'])        ? $_POST['cost'    ]    : false;
 		$stock           = isset($_POST['stock'])       ? $_POST['stock'   ]    : false;
 		$deal            = isset($_POST['deal'])        ? $_POST['deal'    ]    : false;
-		$description     = isset($POST['description'])  ? $_POST['description'] : $name;
+		$description     = isset($_POST['description'])  ? $_POST['description'] : $name;
 		$image    = false;
 
-		if(isset($_FILES['imagen']) && count($_FILES)==1){
-			$_SESSION['product_change'] = "unsuccesful";
-			$imagen   = Utils::uploadImage('image');
+		if(isset($_FILES['image']) && count($_FILES)==1){
+			$image   = Utils::uploadImage('image');
 		}
 
-		if($name || $category_id || $cost || $cost || $deal){
+		if($name && $category_id && $cost && $cost && $deal){
 			$auxProduct = new Producto();
 			$auxProduct = $auxProduct->getOneProduct($_POST['id']);
 			$auxProduct->setNombre($name);

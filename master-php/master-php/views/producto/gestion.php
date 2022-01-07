@@ -4,6 +4,8 @@
 	Crear producto
 </a>
 
+<a href="<?=base_url?>producto/salesManagement" class="button button-small">Gestión de ventas</a>
+
 <?php if(isset($_SESSION['producto']) && $_SESSION['producto'] == 'complete'): ?>
 	<strong class="alert_green">El producto se ha creado correctamente</strong>
 <?php elseif(isset($_SESSION['producto']) && $_SESSION['producto'] != 'complete'): ?>
@@ -37,7 +39,11 @@
 			<td><img src="<?=base_url?>uploads/images/<?=$pro->imagen?>" alt=""></td>
 			<td>
 				<a href="<?=base_url?>producto/editar&id=<?=$pro->id?>" class="button button-gestion">             Editar</a>
-				<a href="<?=base_url?>producto/eliminar&id=<?=$pro->id?>" class="button button-gestion button-red">Eliminar</a>
+				<?php if(in_array($pro->id,Utils::getProductsInOpenOrders())):?>
+					<p>producto en pedidos pendientes</p>
+				<?php else:?>
+					<a href="<?=base_url?>producto/eliminar&id=<?=$pro->id?>" class="button button-gestion button-red">Eliminar</a>
+				<?php endif?>
 			</td>
 		</tr>
 	<?php endwhile; ?>

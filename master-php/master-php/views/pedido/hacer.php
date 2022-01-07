@@ -9,13 +9,13 @@
 	<form action="<?=base_url.'pedido/add'?>" method="POST">
 		<article>
 			<label for="provincia">Provincia</label>
-			<input type="text" name="provincia" required/>
+			<input type="text" name="provincia" />
 
 			<label for="ciudad">Ciudad</label>
-			<input type="text" name="localidad" required />
+			<input type="text" name="localidad"  />
 
 			<label for="direccion">Dirección</label>
-			<input type="text" name="direccion" required/>
+			<input type="text" name="direccion" />
 		</article>
 		<article>
 			<p>direccion: <?=$userAdress->direccion?></p>

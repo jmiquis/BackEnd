@@ -9,11 +9,11 @@
 		<th>Unidades</th>
 		<th>Eliminar</th>
 	</tr>
-	<?php 
-		foreach($carrito as $indice => $elemento): 
+	<?php
+		foreach($carrito as $indice => $elemento):
 		$producto = $elemento['producto'];
 	?>
-	
+
 	<tr>
 		<td>
 			<?php if ($producto->imagen != null): ?>
@@ -26,7 +26,11 @@
 			<a href="<?= base_url ?>producto/ver&id=<?=$producto->id?>"><?=$producto->nombre?></a>
 		</td>
 		<td>
-			<?=$producto->precio?>
+			<?php if($producto->oferta=="no"):?>
+				<?=$producto->precio?>
+			<?php else:?>
+				<?=Utils::getBargain($producto->precio)[1]?>
+			<?php endif?>
 		</td>
 		<td>
 			<?=$elemento['unidades']?>
@@ -39,7 +43,7 @@
 			<a href="<?=base_url?>carrito/delete&index=<?=$indice?>" class="button button-carrito button-red">Quitar producto</a>
 		</td>
 	</tr>
-	
+
 	<?php endforeach; ?>
 </table>
 <br/>

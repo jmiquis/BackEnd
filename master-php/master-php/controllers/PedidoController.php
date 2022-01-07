@@ -22,12 +22,12 @@ class pedidoController{
 			$localidad  = isset($_POST['localidad']) ? $_POST['localidad'] : false;
 			$direccion  = isset($_POST['direccion']) ? $_POST['direccion'] : false;
 
-			if(!empty($_POST['defaultAdress'])){
+			if(isset($_POST['defaultAdress'])){
 				$provincia  = $defaultAdress->provincia;
 				$localidad  = $defaultAdress->localidad;
 				$direccion  = $defaultAdress->direccion;
 			}
-			
+
 			$stats = Utils::statsCarrito();
 			$coste = $stats['total'];
 

@@ -3,7 +3,7 @@
 <p><?=(isset($_SESSION['product_change']))? $_SESSION['product_change'] : '' ?></p><br><br>
 <?php Utils::deleteSession('product_change'); ?>
 
-<form action="<?=base_url?>producto/modifyProduct" method="post">
+<form action="<?=base_url?>producto/modifyProduct" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="id" value="<?=$pro->getId()?>">
     <p>nombre producto</p>

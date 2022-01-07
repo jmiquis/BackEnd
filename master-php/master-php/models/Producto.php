@@ -102,6 +102,10 @@ class Producto{
 		$productos = $this->db->query($sql);
 		return $productos;
 	}
+	public function getBargains(){
+		$categorias = $this->db->query("SELECT * FROM productos WHERE oferta LIKE 'si' ORDER BY id " );
+		return $categorias;
+	}
 
 	public function getRandom($limit){
 		$productos = $this->db->query("SELECT * FROM productos ORDER BY RAND() LIMIT $limit");
@@ -118,12 +122,14 @@ class Producto{
 		if(!$getOneStm)return false;
 		$getOneStm->bind_param("i",$id);
 		$getOneStm->execute();
-		return $getOneStm->get_result()->fetch_object("Producto");
+		$product = $getOneStm->get_result()->fetch_object("Producto");
+		$getOneStm->close();
+		return $product;
 
 	}
 
 	public function save(){
-		$sql = "INSERT INTO productos VALUES(NULL, {$this->getCategoria_id()}, '{$this->getNombre()}', '{$this->getDescripcion()}', {$this->getPrecio()}, {$this->getStock()}, null, CURDATE(), '{$this->getImagen()}');";
+		$sql = "INSERT INTO productos VALUES(NULL, {$this->getCategoria_id()}, '{$this->getNombre()}', '{$this->getDescripcion()}', {$this->getPrecio()}, {$this->getStock()}, 'no', CURDATE(), '{$this->getImagen()}');";
 		$save = $this->db->query($sql);
 
 		$result = false;

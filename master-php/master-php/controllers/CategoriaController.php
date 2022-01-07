@@ -35,6 +35,13 @@ class categoriaController{
 
 		require_once 'views/categoria/ver.php';
 	}
+	public function showBargains(){
+		$categoria = new mysqli();
+		$categoria->nombre="ofertas";
+		$producto  = new Producto();
+		$productos = $producto->getBargains();
+		require_once 'views/categoria/ver.php';
+	}
 
 	public function crear(){
 		Utils::isAdmin();

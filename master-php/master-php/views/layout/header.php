@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="<?=base_url?>assets/css/styles.css" />
 		<script type="text/javascript" src="<?=base_url?>assets/javascript/deleteUser.js"></script>
 		<script type="text/javascript" src="<?=base_url?>assets/javascript/deleteCategory.js"></script>
+		
 	</head>
 	<body>
 		<div id="container">
@@ -31,6 +32,9 @@
 							<a href="<?=base_url?>categoria/ver&id=<?=$cat->id?>"><?=$cat->nombre?></a>
 						</li>
 					<?php endwhile; ?>
+					<li>
+					<a href="<?=base_url?>categoria/showBargains">Ofertas<a>
+					</li>
 				</ul>
 			</nav>
 

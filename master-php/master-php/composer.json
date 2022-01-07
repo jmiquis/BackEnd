@@ -1,0 +1,6 @@
+{
+	"name":"jimiquis/master_php",
+	"require":{
+		"tecnickcom/tcpdf": "^6.4"
+	}
+}

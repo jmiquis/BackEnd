@@ -31,19 +31,21 @@
 						<a href="<?= base_url ?>producto/ver&id=<?= $producto->id ?>"><?= $producto->nombre ?></a>
 					</td>
 					<td>
-						<?= $producto->precio ?>
+						<?php if($producto->oferta=="no"):?>
+							<?=$producto->precio?>
+						<?php else:?>
+							<?=Utils::getBargain($producto->precio)[1]?>
+						<?php endif?>
 					</td>
 					<td>
 						<?= $producto->unidades ?>
 					</td>
 				</tr>
 			<?php endwhile; ?>
-
-
-
 		</table>
 		<!-- cambio introducido -->
 		<p><a href="<?=base_url?>" class="button button-gestion">Confirmar pedido</a></p>
+		<button>generar pdf</button>
 	<?php endif; ?>
 
 <?php elseif (isset($_SESSION['pedido']) && $_SESSION['pedido'] != 'complete'): ?>
