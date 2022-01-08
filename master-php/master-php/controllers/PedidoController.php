@@ -147,5 +147,39 @@ class pedidoController{
 		}
 	}
 
+	public function generatePDF(){
+		ob_clean();
+		ob_start();
+		$html            = "<h1>ALBARAN DE ENTREGA</h1>";
+		$order           = new Pedido();
+		$order->setId($_GET['order']);
+		$orderSTD=$order->getOne();
+
+		$user=new Usuario();
+		$user->setId($orderSTD->usuario_id);
+		$user=$user->getOne();
+		$orderProducts =$order->getProductosByPedido($orderSTD->id);
+		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+		$html.=Self::setPDFText($orderSTD,$user,$orderProducts);
+
+
+		$pdf->AddPage();
+		$pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+		$pdf->Output('order.pdf', 'I');
+		ob_end_flush();
+	}
+
+	private static function setPDFText($order,$user,$products){
+		$msg="";
+		$msg .="<table><tr><th>numero de pedido</th><th>nombre de cliente</th><th>dirección</th></tr><br>";
+		$msg .="<tr><td>".$order->id."</td><td>".$user->nombre." ".$user->apellidos."</td><td>".$order->direccion."</td></tr><br>";
+		foreach ($products as $key => $product) {
+			$msg.="<tr><td>producto<br></td></tr><tr><td>".$product['nombre']."         x ".$product['unidades']."<br></td></tr>";
+		}
+		$msg.="</table>";
+		return $msg;
+	}
+
 
 }

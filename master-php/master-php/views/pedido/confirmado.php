@@ -45,9 +45,7 @@
 		</table>
 		<!-- cambio introducido -->
 		<p><a href="<?=base_url?>" class="button button-gestion">Confirmar pedido</a></p>
-		<button>generar pdf</button>
 	<?php endif; ?>
-
 <?php elseif (isset($_SESSION['pedido']) && $_SESSION['pedido'] != 'complete'): ?>
 	<h1>Tu pedido NO ha podido procesarse</h1>
 <?php endif; ?>

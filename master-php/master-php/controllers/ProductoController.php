@@ -178,5 +178,4 @@ class productoController{
 		header('Location:'.base_url.'Producto/gestion');
 	}
 
-
 }

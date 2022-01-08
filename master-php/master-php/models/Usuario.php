@@ -162,6 +162,13 @@ $statementDeleteUser = $this->db->prepare("DELETE FROM usuarios WHERE id=?");
 
 		return $usersArray;
 	}
+	public function getOne(){
+		$userId = $this->id;
+		$user   = $this->db->query("SELECT * FROM usuarios WHERE id = $userId");
+
+		$user = $user->fetch_object();
+		return $user;
+	}
 
 	public function getOneUser(int $userId):Usuario{
 

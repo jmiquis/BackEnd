@@ -61,5 +61,5 @@
 				</tr>
 			<?php endwhile; ?>
 		</table>
-
+		<button onclick="window.open('<?= base_url ?>pedido/generatePDF&order=<?=$pedido->id?>','self','width:200')">generar pdf</button>
 	<?php endif; ?>

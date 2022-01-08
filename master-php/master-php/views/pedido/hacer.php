@@ -27,7 +27,7 @@
 
 
 
-		<input type="submit" value="Confirmar pedido" />
+		<input type="submit" value="Confirmar dirección" />
 	</form>
 
 <?php else: ?>

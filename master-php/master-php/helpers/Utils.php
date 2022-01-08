@@ -44,7 +44,12 @@ class Utils{
 			$stats['count'] = count($_SESSION['carrito']);
 
 			foreach($_SESSION['carrito'] as $producto){
-				$stats['total'] += $producto['precio']*$producto['unidades'];
+				if($producto['producto']->oferta=="no"){
+					$stats['total'] += $producto['precio']*$producto['unidades'];
+				}
+				else{
+					$stats['total']+=(Self::getBargain($producto['precio']))[1] * $producto['unidades'];
+				}
 			}
 		}
 
@@ -223,33 +228,6 @@ class Utils{
 		$costArray[0] = number_format(($cost+($cost/100)*20),2);
 		$costArray[1] = number_format(($cost-($cost/100)*10),2);
 		return $costArray;
-	}
-
-	public static function generatePDF(){
-		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-		// set default header data
-			$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
-			$pdf->setFooterData(array(0,64,0), array(0,64,128));
-			// set header and footer fonts
-			$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-			$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-			// set default monospaced font
-			$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-			// set margins
-			$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-			$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-			$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-			// set auto page breaks
-			$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-			// set image scale factor
-			$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-			// set default font subsetting mode
-			$pdf->setFontSubsetting(true);
-			$pdf->SetFont('dejavusans', '', 14, '', true);
-			$pdf->AddPage();
-			$html = "<h1>hello world</h1>";
-			$pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-			$pdf->Output('example_001.pdf', 'I');
 	}
 }
 
