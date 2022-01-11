@@ -9,6 +9,7 @@
     id usuario        : <input type="text"     name="id" readonly value="<?=$usuario->getId()?>">
     Contraseña actual : <input type="password" name="oldPass">
     Nueva contraseña  : <input type="password" name="newPass">
+    Repita contraseña : <input type="password" name="newPassRepeat">
 
     <input type="submit" name="validar" value="validar">
 </form>

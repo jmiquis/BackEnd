@@ -195,11 +195,13 @@ $statementDeleteUser = $this->db->prepare("DELETE FROM usuarios WHERE id=?");
 		return $elementsArray;
 	}
 
-	public function getUserOrders()          {return $this->getDatabaseElementsByUser("SELECT *                  FROM pedidos WHERE usuario_id=?");}
-	public function getUserAdresses()        {return $this->getDatabaseElementsByUser("SELECT DISTINCT direccion FROM pedidos WHERE usuario_id=?");}
-	public function getUserRegions()         {return $this->getDatabaseElementsByUser("SELECT DISTINCT provincia FROM pedidos WHERE usuario_id=?");}
-	public function getUserAreas()           {return $this->getDatabaseElementsByUser("SELECT DISTINCT localidad FROM pedidos WHERE usuario_id=?");}
-	public function getUserOrdersStatus()    {return $this->getDatabaseElementsByUser("SELECT DISTINCT estado    FROM pedidos WHERE usuario_id=?");}
+	public function getUserOrders()          {return $this->getDatabaseElementsByUser("SELECT *                  FROM pedidos  WHERE usuario_id=?");}
+	public function getUserAdresses()        {return $this->getDatabaseElementsByUser("SELECT DISTINCT direccion FROM pedidos  WHERE usuario_id=?");}
+	public function getUserRegions()         {return $this->getDatabaseElementsByUser("SELECT DISTINCT provincia FROM pedidos  WHERE usuario_id=?");}
+	public function getUserAreas()           {return $this->getDatabaseElementsByUser("SELECT DISTINCT localidad FROM pedidos  WHERE usuario_id=?");}
+	public function getUserOrdersStatus()    {return $this->getDatabaseElementsByUser("SELECT DISTINCT estado    FROM pedidos  WHERE usuario_id=?");}
+	public function getAllEmails()           {return $this->getDatabaseElementsByUser("SELECT DISTINCT email     FROM usuarios WHERE usuario_id!=?");}
+	public function getUsereExpends()        {return $this->getDatabaseElementsByUser("SELECT ROUND(sum(coste),2)FROM pedidos  where usuario_id=?");}
 
 	//busqueda filtrada
 	public function getOrderFilteredSearch($dataArray){
@@ -252,7 +254,7 @@ $statementDeleteUser = $this->db->prepare("DELETE FROM usuarios WHERE id=?");
 		$stm = $this->db->prepare("UPDATE usuarios SET password=? WHERE id=?");
 		if($stm == false) return false;
 
-		$stm -> bind_param("si",$encPass,$id);
+		$stm -> bind_param("si",$encriptedPassword,$id);
 		$stm -> execute();
 
 		return ($this->db->affected_rows  == 1) ? true : false;

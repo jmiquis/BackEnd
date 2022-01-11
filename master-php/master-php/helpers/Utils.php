@@ -44,12 +44,7 @@ class Utils{
 			$stats['count'] = count($_SESSION['carrito']);
 
 			foreach($_SESSION['carrito'] as $producto){
-				if($producto['producto']->oferta=="no"){
 					$stats['total'] += $producto['precio']*$producto['unidades'];
-				}
-				else{
-					$stats['total']+=(Self::getBargain($producto['precio']))[1] * $producto['unidades'];
-				}
 			}
 		}
 
@@ -102,10 +97,6 @@ class Utils{
 
 	public static function getAllRoles():array{
 		return Self::getDatabaseElements("SELECT DISTINCT rol        FROM usuarios");
-	}
-
-	public static function getAllEmails():array       {
-		return Self::getDatabaseElements("SELECT DISTINCT email      FROM usuarios");
 	}
 
 	public static function checkFreeOrdersUser():array{
@@ -224,10 +215,9 @@ class Utils{
 	}
 
 	public static function getBargain($cost){
-		$costArray    = [];
-		$costArray[0] = number_format(($cost+($cost/100)*20),2);
-		$costArray[1] = number_format(($cost-($cost/100)*10),2);
-		return $costArray;
+
+		return number_format(($cost+($cost/100)*20),2);
+
 	}
 }
 

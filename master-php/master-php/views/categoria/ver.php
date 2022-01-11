@@ -16,8 +16,8 @@
 				<?php if($product->oferta=="no"):?>
 					<p><?=$product->precio?></p>
 				<?php else:?>
-					<del><p>precio anterior <?= Utils::getBargain($product->precio)[0]?></p></del>
-					<p>precio rebajado <?=Utils::getBargain($product->precio)[1]?></p>
+					<del><p>precio anterior <?= Utils::getBargain($product->precio)?></p></del>
+					<p>precio rebajado <?=$product->precio?></p>
 				<?php endif?>
 				<?php if ($product->stock > 0): ?>
 					<a href="<?=base_url?>carrito/add&id=<?=$product->id?>" class="button">Comprar</a>

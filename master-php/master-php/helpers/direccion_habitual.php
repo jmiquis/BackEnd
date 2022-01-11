@@ -20,8 +20,8 @@
        //insert
 
        public function save(){
-            $saveStm = $this->db->prepare("INSERT INTO direccion_habitual VALUES (NULL,?,?,?)");
-            $saveStm->bind_param("sss",$this->provincia,$this->localidad,$this->direccion);
+            $saveStm = $this->db->prepare("INSERT INTO direccion_habitual VALUES (null,?,?,?)");
+            $saveStm->bind_param("sss",$this->provincia,$this->localidad,$this->direccion_usuario);
             if($saveStm->execute());
             $this->id_direccion_habitual = $saveStm->insert_id;
             return ($this->db->affected_rows  == 1) ? true : false;

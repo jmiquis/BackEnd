@@ -34,7 +34,7 @@
 						<?php if($producto->oferta=="no"):?>
 							<?=$producto->precio?>
 						<?php else:?>
-							<?=Utils::getBargain($producto->precio)[1]?>
+							<?=Utils::getBargain($producto->precio)?>
 						<?php endif?>
 					</td>
 					<td>

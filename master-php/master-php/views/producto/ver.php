@@ -14,8 +14,8 @@
 			<?php if($product->oferta=="no"):?>
 				<p class="price"><?= $product->precio ?>$</p>
 			<?php else:?>
-				<p class="price">precio anterior <del><?=Utils::getBargain($product->precio)[0]?></del>€</p>
-				<p class="price">precio rebajado <?=Utils::getBargain($product->precio)[1]?>€</p>
+				<p class="price">precio anterior <del><?=Utils::getBargain($product->precio)?></del>€</p>
+				<p class="price">precio rebajado <?=$product->precio?>€</p>
 			<?php endif?>
 
 		<?php if ($product->stock > 0): ?>

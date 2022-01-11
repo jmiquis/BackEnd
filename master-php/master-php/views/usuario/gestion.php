@@ -32,7 +32,7 @@
                 </td>
                 <td>
                     <!-- cambio de contraseña-->
-                <?php if (isset($_SESSION['admin']) || Utils::checksNonAdminId($user->getId())):?>
+                <?php if ($user->getId()==$_SESSION['identity']->id):?>
                         <a href="<?=base_url?>usuario/changeUserPassword&id=<?=$user->getId()?>" class ="button button-gestion">cambiar contraseña</a>
                 <?php endif?>
                 </td>

@@ -44,7 +44,7 @@ class Categoria{
 		$getOneStm->close();
 		return $category;
 	}
-	
+
 
 
 	//insert
@@ -84,7 +84,7 @@ class Categoria{
 	}
 
 	public function getTotalSold(){
-		$stm = $this->db->prepare("SELECT sum(pr.precio * l.unidades) AS total FROM productos pr,lineas_pedidos l WHERE pr.id=l.producto_id AND pr.categoria_id = ?");
+		$stm = $this->db->prepare("SELECT sum(p.precio * l.unidades) FROM lineas_pedidos l, productos p WHERE p.id=l.producto_id AND categoria_id=?");
 		if(!$stm)return false;
 		$stm->bind_param("i",$this->id);
 		$stm->execute();

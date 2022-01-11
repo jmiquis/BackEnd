@@ -62,12 +62,14 @@ class usuarioController{
 			$email 	   = isset($_POST['email'    ]) ? $_POST['email'    ] : false;
 			$password  = isset($_POST['password' ]) ? $_POST['password' ] : false;
 
-			if( $nombre && $apellidos && $email && $password && (!in_array($email,Utils::getAllEmails()))){
+			if( $nombre && $apellidos && $email && $password){
 				$usuario  = new Usuario();
 				$usuario -> setNombre     ($nombre   );
 				$usuario -> setApellidos  ($apellidos);
 				$usuario -> setEmail      ($email    );
 				$usuario -> setPassword   ($password );
+
+				if(in_array($usuario->getEmail(),$usuario->getAllEmails())){
 
 				if(!empty($_POST['defaultAdress']) && !empty($_POST['defaultRegion']) && !empty($_POST['defaultArea'])){
 					$defaultAdress = new Direccion_habitual();
@@ -84,7 +86,7 @@ class usuarioController{
 						}
 					}
 				}
-
+				}
 			}
 		}
 		header("Location:".base_url.'usuario/registro');
@@ -106,12 +108,13 @@ class usuarioController{
 				$imagen   = Utils::uploadImage('imagen');
 			}
 
-			if( $id && $nombre && $apellidos && $email &&(!in_array($email,Utils::getAllEmails()))){
+			if( $id && $nombre && $apellidos && $email ){
 				$usuario  = new Usuario();
 				$usuario  = $usuario -> getOneUser($id);
 				$usuario -> setNombre     ($nombre   );
 				$usuario -> setApellidos  ($apellidos);
 				$usuario -> setEmail      ($email    );
+				if(in_array($usuario->getPassword(),$usuario->getAllEmails())){
 
 				if($imagen == false) $imagen =  $usuario->getImagen();
 				$usuario -> setImagen($imagen);
@@ -123,6 +126,7 @@ class usuarioController{
 				$ok = $usuario-> modifyUser();
 				if($ok)$_SESSION['modified'] = "succesful";
 			}
+			}
 		}
 		header("Location:".base_url.'usuario/userInfoManagement&id='.$id);
 	}
@@ -132,8 +136,9 @@ class usuarioController{
 		$_SESSION["password_change"] = "error en el cambio";
 
 		if(isset($_POST["validar"])){
+			Utils::checksNonAdminId($_POST['id']);
+			if(!empty($_POST['oldPass']) && !empty($_POST['newPass']) && !empty($_POST['newPassRepeat'])){
 
-			if(!empty($_POST['oldPass']) && !empty($_POST['newPass'])){
 
 				$oldPass = $_POST['oldPass'];
 				$newPass = $_POST['newPass'];
@@ -141,9 +146,10 @@ class usuarioController{
 				$usuario = $usuario -> getOneUser($_POST['id']);
 
 				if(password_verify($oldPass,$usuario->getPassword())){
-
-					if($usuario -> modifyPassword($usuario->getId(),$newPass)){
-						$_SESSION["password_change"] = "cambio realizado";
+					if($newPass===$_POST['newPassRepeat']){
+						if($usuario -> modifyPassword($usuario->getId(),$newPass)){
+							$_SESSION["password_change"] = "cambio realizado";
+						}
 					}
 
 				}
@@ -172,15 +178,16 @@ class usuarioController{
 	public function deleteUser(){
 		$id = $_POST['deleteId'];
 		$_SESSION['UserManagementMsg'] = 'error al borrar usuario ';
-		if(!isset($_SESSION['admin']))return false;
-		$usuario = new Usuario();
-		$usuario = $usuario->getOneUser($id);
+		if(!isset($_SESSION['admin'])){
+			$usuario = new Usuario();
+			$usuario = $usuario->getOneUser($id);
 
-		if($usuario->deleteUser($usuario->getId())){
-			$_SESSION['UserManagementMsg'] = 'usuario borrado con exito ';
-		}
+			if($usuario->deleteUser($usuario->getId())){
+				$_SESSION['UserManagementMsg'] = 'usuario borrado con exito ';
+			}
 
 			header("Location:".base_url.'usuario/gestion');
+		}
 	}
 
 	public function userOrdersManagement(){
@@ -192,7 +199,7 @@ class usuarioController{
 			$id          = $_REQUEST['id'];
 			$user        = new Usuario();
 			$user        = $user->getOneUser($id);
-			$tableHeader = ["<b>nº pedido</b>","<b>numero usuario</b>","<b>dirección</b>","<b>provincia</b>","<b>localidad</b>","<b>coste pedido</b>","<b>fecha</b>","<b>hora</b>","<b>estado</b>"];
+			$tableHeader = ["<b>nº pedido</b>","<b>numero usuario</b>","<b>dirección</b>","<b>provincia</b>","<b>localidad</b>","<b>coste pedido</b>","<b>estado</b>","<b>fecha</b>","<b>hora</b>"];
 
 			if (isset($_POST['query'])) {
 				$userOrdersQuery = $this->userOrders($user);

@@ -26,11 +26,7 @@
 			<a href="<?= base_url ?>producto/ver&id=<?=$producto->id?>"><?=$producto->nombre?></a>
 		</td>
 		<td>
-			<?php if($producto->oferta=="no"):?>
-				<?=$producto->precio?>
-			<?php else:?>
-				<?=Utils::getBargain($producto->precio)[1]?>
-			<?php endif?>
+			<?=$producto->precio?>
 		</td>
 		<td>
 			<?=$elemento['unidades']?>

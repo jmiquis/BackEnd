@@ -1,6 +1,6 @@
 
 <h1>Gestion de pedidos del usuario <?=$user->getNombre()?> </h1>
-
+<h2>total de dinero gastado por el usuario = <?=$user->getUsereExpends()[0][0] ?> €</h2>
 
 <form action="<?=base_url?>usuario/userOrdersManagement" method="POST">
 <input type="hidden" name="id"    value="<?=$user->getId()?>">

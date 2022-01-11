@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '3362e2c4c4c0748a03b9f47c2998957596945632',
+        'reference' => 'bd8b9a70cd5060e398b003aa23d7532cf8e66016',
         'name' => 'jimiquis/master_php',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '3362e2c4c4c0748a03b9f47c2998957596945632',
+            'reference' => 'bd8b9a70cd5060e398b003aa23d7532cf8e66016',
             'dev_requirement' => false,
         ),
         'tecnickcom/tcpdf' => array(

@@ -1,6 +1,10 @@
 <?php
 require_once 'models/Producto.php';
 require_once 'helpers/direccion_habitual.php';
+require_once 'vendor/autoload.php';
+
+
+use benhall14\PHPPagination\Pagination as Pagination;
 
 class productoController{
 
@@ -29,8 +33,11 @@ class productoController{
 	public function gestion(){
 		Utils::isAdmin();
 
-		$producto  = new Producto();
-		$productos = $producto->getAll();
+		$producto   = new Producto();
+		$productos  = $producto->getAll();
+		$pagination = new Pagination();
+		$pagination->total(4);
+		
 
 		require_once 'views/producto/gestion.php';
 	}

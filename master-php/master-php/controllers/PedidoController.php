@@ -174,10 +174,14 @@ class pedidoController{
 		$msg="";
 		$msg .="<table><tr><th>numero de pedido</th><th>nombre de cliente</th><th>dirección</th></tr><br>";
 		$msg .="<tr><td>".$order->id."</td><td>".$user->nombre." ".$user->apellidos."</td><td>".$order->direccion."</td></tr><br>";
-		foreach ($products as $key => $product) {
-			$msg.="<tr><td>producto<br></td></tr><tr><td>".$product['nombre']."         x ".$product['unidades']."<br></td></tr>";
+        $msg.="<tr><td>producto</td><td>unidades</td><td>precio unidad</td></tr><br>";
+		foreach ($products as $key => $product){
+                $msg.="<tr><td>".$product['nombre']."</td><td>".$product['unidades']."</td><td>".$product['precio']."</td></tr>";
 		}
 		$msg.="</table>";
+		$msg.="<p>coste total del pedido ".$order->coste."</p>";
+		$msg.="<p>".$order->fecha." ".$order->hora."</p>";
+
 		return $msg;
 	}
 

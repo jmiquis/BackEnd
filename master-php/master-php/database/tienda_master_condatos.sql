@@ -178,10 +178,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellidos`, `email`, `password`, `rol`, `imagen`) VALUES
-(1, 'Admin', 'Admin', 'admin@admin.com', '$2y$04$ZXAzQItgQpM9SIK8c9uzB.fVToPCDUj8V6W0.sV.vsrPPjSsLuI8q', 'admin', NULL),
-(3, 'Miguel ', 'García López', 'cosa01@iestetuan.es', '$2y$04$ZXAzQItgQpM9SIK8c9uzB.fVToPCDUj8V6W0.sV.vsrPPjSsLuI8q', 'user', NULL),
-(7, 'alberto', 'lopez', 'alberto@es.es', '$2y$04$ZXAzQItgQpM9SIK8c9uzB.fVToPCDUj8V6W0.sV.vsrPPjSsLuI8q', 'user', NULL),
-(14, 'pepe1', 'López', 'pepe@pepe.es', '$2y$04$ZXAzQItgQpM9SIK8c9uzB.fVToPCDUj8V6W0.sV.vsrPPjSsLuI8q', 'user', NULL);
+(1, 'Admin', 'Admin', 'admin@admin.com', '$2y$04$9vKA901Dq1EiK.1WVqR8lOQgxE4EL2AvFmFonKgEniqn5FW71xen6', 'admin', NULL),
+(3, 'Miguel ', 'García López', 'cosa01@iestetuan.es', '$2y$04$9vKA901Dq1EiK.1WVqR8lOQgxE4EL2AvFmFonKgEniqn5FW71xen6', 'user', NULL),
+(7, 'alberto', 'lopez', 'alberto@es.es', '$2y$04$9vKA901Dq1EiK.1WVqR8lOQgxE4EL2AvFmFonKgEniqn5FW71xen6', 'user', NULL),
+(14, 'pepe1', 'López', 'pepe@pepe.es', '$2y$04$9vKA901Dq1EiK.1WVqR8lOQgxE4EL2AvFmFonKgEniqn5FW71xen6', 'user', NULL);
 
 --
 -- Índices para tablas volcadas
