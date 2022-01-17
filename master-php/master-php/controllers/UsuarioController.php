@@ -36,7 +36,7 @@ class usuarioController{
 
 		$usuario = new Usuario();
 		$usuario = $usuario -> getOneUser($_GET['id']);
-		if(!isset($_SESSION['admin'])) Utils::checksNonAdminId($usuario->getId());
+		Utils::checksNonAdminId($usuario->getId());
 
 		require_once 'views/usuario/changeUserPassword.php';
 
@@ -69,7 +69,7 @@ class usuarioController{
 				$usuario -> setEmail      ($email    );
 				$usuario -> setPassword   ($password );
 
-				if(in_array($usuario->getEmail(),$usuario->getAllEmails())){
+				if(!in_array($usuario->getEmail(),$usuario->getAllEmails())){
 
 				if(!empty($_POST['defaultAdress']) && !empty($_POST['defaultRegion']) && !empty($_POST['defaultArea'])){
 					$defaultAdress = new Direccion_habitual();
@@ -114,7 +114,7 @@ class usuarioController{
 				$usuario -> setNombre     ($nombre   );
 				$usuario -> setApellidos  ($apellidos);
 				$usuario -> setEmail      ($email    );
-				if(in_array($usuario->getPassword(),$usuario->getAllEmails())){
+				if(!in_array($usuario->getEmail(),$usuario->getAllEmails())){
 
 				if($imagen == false) $imagen =  $usuario->getImagen();
 				$usuario -> setImagen($imagen);
@@ -136,7 +136,7 @@ class usuarioController{
 		$_SESSION["password_change"] = "error en el cambio";
 
 		if(isset($_POST["validar"])){
-			Utils::checksNonAdminId($_POST['id']);
+
 			if(!empty($_POST['oldPass']) && !empty($_POST['newPass']) && !empty($_POST['newPassRepeat'])){
 
 
@@ -178,7 +178,7 @@ class usuarioController{
 	public function deleteUser(){
 		$id = $_POST['deleteId'];
 		$_SESSION['UserManagementMsg'] = 'error al borrar usuario ';
-		if(!isset($_SESSION['admin'])){
+		if(isset($_SESSION['admin'])){
 			$usuario = new Usuario();
 			$usuario = $usuario->getOneUser($id);
 

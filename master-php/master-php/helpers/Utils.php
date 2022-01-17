@@ -126,6 +126,8 @@ class Utils{
 	public static function getNoStockProducts(){
 		return Self::getDatabaseElements("SELECT * FROM productos WHERE stock =0",true);
 	}
+	
+
 
 
 

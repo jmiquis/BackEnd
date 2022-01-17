@@ -6,8 +6,8 @@ class categoriaController{
 
 	public function index(){
 		Utils::isAdmin();
-		$categoria  = new Categoria();
-		$categorias = $categoria->getAll();
+		$categoria     = new Categoria();
+		$categorias    = $categoria->getAllCategories();
 
 		require_once 'views/categoria/index.php';
 	}
@@ -69,7 +69,7 @@ class categoriaController{
 						}
 					}
 		}
-		header("Location:".base_url."categoria/categoriesManagement&id=".$_POST['id']);
+		header("Location:".base_url."categoria/index");
 	}
 
 	public function deleteCategory(){
@@ -83,7 +83,7 @@ class categoriaController{
 				die();
 			}
 		}
-		header("Location:".base_url."categoria/categoriesManagement&id=".$_POST['id']);
+
 	}
 
 

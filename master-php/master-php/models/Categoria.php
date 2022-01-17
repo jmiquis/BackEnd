@@ -29,6 +29,14 @@ class Categoria{
 		$categorias = $this->db->query("SELECT * FROM categorias ORDER BY id DESC;");
 		return $categorias;
 	}
+	public function getAllCategories(){
+		$categoriesArray = [];
+		$stm = $this->db->prepare("SELECT * FROM categorias ORDER BY id DESC");
+		$stm->execute();
+		$result = $stm->get_result();
+		while ($row = $result->fetch_object("Categoria")) $categoriesArray[] = $row;
+		return $categoriesArray;
+	}
 
 	public function getOne(){
 		$categoria = $this->db->query("SELECT * FROM categorias WHERE id={$this->getId()}");

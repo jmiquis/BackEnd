@@ -200,7 +200,7 @@ $statementDeleteUser = $this->db->prepare("DELETE FROM usuarios WHERE id=?");
 	public function getUserRegions()         {return $this->getDatabaseElementsByUser("SELECT DISTINCT provincia FROM pedidos  WHERE usuario_id=?");}
 	public function getUserAreas()           {return $this->getDatabaseElementsByUser("SELECT DISTINCT localidad FROM pedidos  WHERE usuario_id=?");}
 	public function getUserOrdersStatus()    {return $this->getDatabaseElementsByUser("SELECT DISTINCT estado    FROM pedidos  WHERE usuario_id=?");}
-	public function getAllEmails()           {return $this->getDatabaseElementsByUser("SELECT DISTINCT email     FROM usuarios WHERE usuario_id!=?");}
+	public function getAllEmails()           {return $this->getDatabaseElementsByUser("SELECT DISTINCT email     FROM usuarios WHERE id !=?");}
 	public function getUsereExpends()        {return $this->getDatabaseElementsByUser("SELECT ROUND(sum(coste),2)FROM pedidos  where usuario_id=?");}
 
 	//busqueda filtrada

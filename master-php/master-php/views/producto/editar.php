@@ -1,7 +1,7 @@
 <h1>Editar producto <?=$pro->getNombre()?></h1>
 
-<p><?=(isset($_SESSION['product_change']))? $_SESSION['product_change'] : '' ?></p><br><br>
-<?php Utils::deleteSession('product_change'); ?>
+<p><?=(isset($_SESSION['change_product']))? $_SESSION['change_product'] : '' ?></p><br><br>
+<?php Utils::deleteSession('change_product'); ?>
 
 <form action="<?=base_url?>producto/modifyProduct" method="post" enctype="multipart/form-data">
 

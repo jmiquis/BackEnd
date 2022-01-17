@@ -26,23 +26,25 @@
 		<th>NOMBRE</th>
 		<th>PRECIO</th>
 		<th>STOCK</th>
+		<th>VENTAS</th>
 		<th>IMAGEN</th>
 		<th>ACCIONES</th>
 
 	</tr>
-	<?php while($pro = $productos->fetch_object()): ?>
+	<?php while($pro = $productos->fetch_object("Producto")): ?>
 		<tr>
-			<td><?=$pro->id;?></td>
-			<td><?=$pro->nombre;?></td>
-			<td><?=$pro->precio;?></td>
-			<td><?=$pro->stock;?></td>
-			<td><img src="<?=base_url?>uploads/images/<?=$pro->imagen?>" alt=""></td>
+			<td><?=$pro->getId();?></td>
+			<td><?=$pro->getNombre();?></td>
+			<td><?=$pro->getPrecio();?></td>
+			<td><?=$pro->getStock();?></td>
+			<td><?=$pro->getTotalSoldsByProduct()?></td>
+			<td><img src="<?=base_url?>uploads/images/<?=$pro->getImagen()?>" alt=""></td>
 			<td>
-				<a href="<?=base_url?>producto/editar&id=<?=$pro->id?>" class="button button-gestion">             Editar</a>
-				<?php if(in_array($pro->id,Utils::getProductsInOpenOrders())):?>
+				<a href="<?=base_url?>producto/editar&id=<?=$pro->getId()?>" class="button button-gestion">             Editar</a>
+				<?php if(in_array($pro->getId(),Utils::getProductsInOpenOrders())):?>
 					<p>producto en pedidos pendientes</p>
 				<?php else:?>
-					<a href="<?=base_url?>producto/eliminar&id=<?=$pro->id?>" class="button button-gestion button-red">Eliminar</a>
+					<a href="<?=base_url?>producto/eliminar&id=<?=$pro->getId()?>" class="button button-gestion button-red">Eliminar</a>
 				<?php endif?>
 			</td>
 		</tr>

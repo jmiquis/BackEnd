@@ -3,9 +3,6 @@ require_once 'models/Producto.php';
 require_once 'helpers/direccion_habitual.php';
 require_once 'vendor/autoload.php';
 
-
-use benhall14\PHPPagination\Pagination as Pagination;
-
 class productoController{
 
 	public function index(){
@@ -35,9 +32,6 @@ class productoController{
 
 		$producto   = new Producto();
 		$productos  = $producto->getAll();
-		$pagination = new Pagination();
-		$pagination->total(4);
-		
 
 		require_once 'views/producto/gestion.php';
 	}
@@ -59,12 +53,12 @@ class productoController{
 	public function save(){
 		Utils::isAdmin();
 		if(isset($_POST)){
-			$nombre      = isset($_POST['nombre'])      ? $_POST['nombre']      : false;
-			$descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : false;
-			$precio      = isset($_POST['precio'])      ? $_POST['precio']      : false;
-			$stock       = isset($_POST['stock'])       ? $_POST['stock']       : false;
-			$categoria   = isset($_POST['categoria'])   ? $_POST['categoria']   : false;
-			$imagen      = isset($_POST['imagen'     ]) ? $_POST['imagen']      : false;
+			$nombre      = isset($_POST['nombre'])                           ? $_POST['nombre']      : false;
+			$descripcion = isset($_POST['descripcion'])                      ? $_POST['descripcion'] : false;
+			$precio      = (isset($_POST['precio']) && $_POST['precio']>0 )  ? $_POST['precio']      : false;
+			$stock       = (isset($_POST['stock']) && $_POST['stock']>0)     ? $_POST['stock']       : false;
+			$categoria   = isset($_POST['categoria'])                        ? $_POST['categoria']   : false;
+			$imagen      = isset($_POST['imagen'     ])                      ? $_POST['imagen']      : false;
 
 			if($nombre && $descripcion && $precio && $stock && $categoria){
 				$producto = new Producto();
@@ -134,12 +128,12 @@ class productoController{
 	public function modifyProduct(){
 		$_SESSION['change_product'] = "error en el cambio";
 		Utils::isAdmin();
-		$name            = isset($_POST['productName']) ? $_POST['productName'] : false;
-		$category_id     = isset($_POST['category'])    ? $_POST['category']    : false;
-		$cost            = isset($_POST['cost'])        ? $_POST['cost'    ]    : false;
-		$stock           = isset($_POST['stock'])       ? $_POST['stock'   ]    : false;
-		$deal            = isset($_POST['deal'])        ? $_POST['deal'    ]    : false;
-		$description     = isset($_POST['description'])  ? $_POST['description'] : $name;
+		$name            = isset($_POST['productName'])                   ? $_POST['productName'] : false;
+		$category_id     = isset($_POST['category'])                      ? $_POST['category']    : false;
+		$cost            = (isset($_POST['cost']) && $_POST['cost']>0 )   ? $_POST['cost']      : false;
+		$stock           = (isset($_POST['stock']) && $_POST['stock']>0)  ? $_POST['stock']       : false;
+		$deal            = isset($_POST['deal'])                          ? $_POST['deal'    ]    : false;
+		$description     = isset($_POST['description'])                   ? $_POST['description'] : $name;
 		$image    = false;
 
 		if(isset($_FILES['image']) && count($_FILES)==1){
@@ -157,7 +151,7 @@ class productoController{
 			$auxProduct->setDescripcion($description);
 			if($image == false) $image = $auxProduct->getImagen();
 			$auxProduct->setImagen($image);
-			if($auxProduct->edit())$_SESSION['product_change'] = "cambio ok";
+			if($auxProduct->edit())$_SESSION['change_product'] = "cambio ok";
 		}
 		header("Location:".base_url.'producto/editar&id='.$_REQUEST['id']);
 

@@ -93,6 +93,17 @@ class Producto{
 		$productos = $this->db->query("SELECT * FROM productos ORDER BY id DESC");
 		return $productos;
 	}
+	public function getAllProducts(){
+		$productsArray = [];
+		$stm = $this->db->prepare("SELECT * FROM productos ORDER BY id DESC");
+		if(!$stm) return false;
+
+		if(!$stm->execute()) return false;
+		$getResults = $stm->get_result();
+		while($row = $getResults->fetch_object("Producto"))$productsArray[] = $row;
+
+		return $productsArray;
+	}
 
 	public function getAllCategory(){
 		$sql = "SELECT p.*, c.nombre AS 'catnombre' FROM productos p "
@@ -105,6 +116,16 @@ class Producto{
 	public function getBargains(){
 		$categorias = $this->db->query("SELECT * FROM productos WHERE oferta LIKE 'si' ORDER BY id " );
 		return $categorias;
+	}
+	public function getTotalSoldsByProduct(){
+		$id = $this->id;
+		$getTotalSoldSTM = $this->db->prepare("SELECT sum(unidades) as 'total' FROM lineas_pedidos WHERE producto_id =?");
+		if(!$getTotalSoldSTM)return false;
+		$getTotalSoldSTM->bind_param("i",$id);
+		$getTotalSoldSTM->execute();
+		$total = $getTotalSoldSTM->get_result()->fetch_array()[0];
+		$getTotalSoldSTM->close();
+		return $total;
 	}
 
 	public function getRandom($limit){
