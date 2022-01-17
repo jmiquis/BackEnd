@@ -4,8 +4,8 @@
 require_once 'accesoDatos.php';
     $aux=AccesoDatos::getModelo();
     $max = $aux->getMax();
-
 ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
