@@ -1,5 +1,8 @@
 <h1>Detalle del pedido</h1>
 
+<p><?=(isset($_SESSION['change_review']))? $_SESSION['change_review'] : '' ?></p><br><br>
+<?php Utils::deleteSession('change_review'); ?>
+
 <?php if (isset($pedido)): ?>
 		<?php if(isset($_SESSION['admin'])): ?>
 			<h3>Cambiar estado del pedido</h3>
@@ -59,7 +62,35 @@
 						<?= $producto->unidades ?>
 					</td>
 				</tr>
+
+				<?php $review->id_producto=$producto->id?>
+
+				<!-- si el usuario tiene reviews pendientes -->
+				<?php if($arrayReviewsPendientes):?>
+
+						<?php if($review->isInArray($arrayReviewsPendientes)):?>
+							<form action="<?=base_url?>producto/updateReview" method="POST">
+								<input type="hidden" name="productoId" value="<?=$producto->id?>">
+								<input type="hidden" name="usuarioId"  value="<?=$pedido->usuario_id?>" >
+								<input type="hidden" name="pedidoId"   value="<?=$pedido->id?>">
+								<tr>
+									<td>Valora el producto</td>
+									<td><input type="number" name="notaReview" min=0 max=10></td>
+								</tr>
+								<tr>
+									<td>Comparte tu opinión sobre el producto</td>
+								</tr>
+								<tr>
+									<td><input type="text" name="reviewProducto"></td>
+								</tr>
+									<td><input type="submit" name="accion" value="enviar review"></td>
+							</form>
+						<?php endif?>
+					<?php endif?>
+
 			<?php endwhile; ?>
 		</table>
 		<button onclick="window.open('<?= base_url ?>pedido/generatePDF&order=<?=$pedido->id?>','self','width:200')">generar pdf</button>
+
+
 	<?php endif; ?>

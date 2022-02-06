@@ -10,6 +10,8 @@ class Producto{
 	private $oferta;
 	private $fecha;
 	private $imagen;
+	private $nota;
+	private $num_votantes=0;
 
 	private $db;
 
@@ -89,13 +91,37 @@ class Producto{
 		$this->imagen = $imagen;
 	}
 
-	public function getAll(){
-		$productos = $this->db->query("SELECT * FROM productos ORDER BY id DESC");
-		return $productos;
+	function setNota(int $nota){
+		$this->nota = $nota;
+	}
+
+	function getNota(){
+		return $this->nota;
+	}
+
+	function FunctionName(){
+		# code...
+	}
+
+
+	public function getAllPaginated($pageNumber){
+
+		$init = ($pageNumber-1)*ITEMSPERPAGE;
+		$paginatedSTM = $this->db->prepare("SELECT * FROM productos ORDER BY id ASC LIMIT ".$init.",".ITEMSPERPAGE);
+		$paginatedSTM->execute();
+		return $paginatedSTM->get_result();
+	}
+
+	public function getTotalNumberOfProducts():int{
+		$stm                 = $this->db->prepare("SELECT * FROM productos");
+		if(!$stm) return false;
+		if(!$stm->execute()) return false;
+		$getResults          = $stm->get_result();
+		return $numberOfRows = mysqli_num_rows($getResults);
 	}
 	public function getAllProducts(){
 		$productsArray = [];
-		$stm = $this->db->prepare("SELECT * FROM productos ORDER BY id DESC");
+		$stm = $this->db->prepare("SELECT * FROM productos ORDER BY id asc");
 		if(!$stm) return false;
 
 		if(!$stm->execute()) return false;
@@ -150,7 +176,7 @@ class Producto{
 	}
 
 	public function save(){
-		$sql = "INSERT INTO productos VALUES(NULL, {$this->getCategoria_id()}, '{$this->getNombre()}', '{$this->getDescripcion()}', {$this->getPrecio()}, {$this->getStock()}, 'no', CURDATE(), '{$this->getImagen()}');";
+		$sql = "INSERT INTO productos VALUES(NULL, {$this->getCategoria_id()}, '{$this->getNombre()}', '{$this->getDescripcion()}', {$this->getPrecio()}, {$this->getStock()}, 'no', CURDATE(), '{$this->getImagen()}',0);";
 		$save = $this->db->query($sql);
 
 		$result = false;
@@ -189,5 +215,4 @@ class Producto{
 		}
 		return $result;
 	}
-
 }

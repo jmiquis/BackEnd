@@ -7,6 +7,8 @@ class accesoDatos{
     private $getAllProductosSTM    = null;
     private $applyDiscountSTM      = null;
     private $getNotSoldProductsSTM = null;
+    private $deleteProductSTM      = null;
+    private $insertProduct         = null;
 
     public static function getModelo(){
         if (self::$modelo == null){
@@ -29,7 +31,9 @@ class accesoDatos{
         }
 
         $this->applyDiscountSTM      = $this->dbh->prepare("UPDATE productos SET PRECIO_ACTUAL=PRECIO_ACTUAL-(PRECIO_ACTUAL*0.10) WHERE PRODUCTO_NO = :producto_no");
-        $this->getNotSoldProductsSTM = $this->dbh->prepare("SELECT * FROM  productos WHERE PRODUCTO_NO NOT IN(SELECT PRODUCTO_NO FROM pedidos)"); ;
+        $this->getNotSoldProductsSTM = $this->dbh->prepare("SELECT * FROM productos WHERE PRODUCTO_NO NOT IN(SELECT PRODUCTO_NO FROM pedidos)");
+        $this->deleteProductSTM      = $this->dbh->prepare("DELETE  FROM  productos WHERE PRODUCTO_NO = :producto_no");
+        $this->insertProduct         = $this->dbh->prepare("INSERT  INTO  productos VALUES (NULL, :descripcion, :precio_actual,:stock_disponible");
     }
 
     // Cierro la conexión anulando todos los objectos relacioanado con la conexión PDO (stmt)
@@ -51,7 +55,15 @@ class accesoDatos{
     public function updateProducts(Array $productsArray){
         foreach ($productsArray as $key=>$value){
             $this->applyDiscountSTM->bindParam(":producto_no",$value);
-            $this->applyDiscountSTM->execute();
+            return $this->applyDiscountSTM->execute();
         }
+    }
+
+    public function createProduct($description,$cost,$stock){
+        $this->insertProduct->bindParam(1,$description);
+        $this->insertProduct->bindParam(2,$cost);
+        $this->insertProduct->bindParam(3,$stock);
+        $this->insertProduct->execute();
+        return  $this->insertProduct->rowCount()==1 ? true:false;
     }
 }

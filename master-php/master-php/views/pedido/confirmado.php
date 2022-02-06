@@ -1,7 +1,7 @@
 <?php if (isset($_SESSION['pedido']) && $_SESSION['pedido'] == 'complete'): ?>
-	<h1>Confirmar compra</h1>
+	<h1>Compra realizada</h1>
 	<p>
-		Si aceptas el pedido se realizará una transferencia automatica al numero de cuenta ES002390994003948393.
+		El pedido ha sido aceptado
 	</p>
 	<br/>
 	<?php if (isset($pedido)): ?>
@@ -44,7 +44,7 @@
 			<?php endwhile; ?>
 		</table>
 		<!-- cambio introducido -->
-		<p><a href="<?=base_url?>" class="button button-gestion">Confirmar pedido</a></p>
+		<p><a href="<?=base_url?>" class="button button-gestion">Seguir comprando</a></p>
 	<?php endif; ?>
 <?php elseif (isset($_SESSION['pedido']) && $_SESSION['pedido'] != 'complete'): ?>
 	<h1>Tu pedido NO ha podido procesarse</h1>

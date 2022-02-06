@@ -1,3 +1,4 @@
+
 <?php if (isset($product)): ?>
 	<h1><?= $product->nombre ?></h1>
 	<div id="detail-product">
@@ -18,13 +19,22 @@
 				<p class="price">precio rebajado <?=$product->precio?>€</p>
 			<?php endif?>
 
+
+
 		<?php if ($product->stock > 0): ?>
-			<a href="<?=base_url?>carrito/add&id=<?=$product->id?>" class="button">Comprar</a>
+			<a href="<?=base_url?>carrito/add&id=<?=$product->id?>" class="button">Comprar</a><br><br><br>
 		<?php else :?>
-			<a href="#" class="button">No disponible</a>
+			<a href="#" class="button">No disponible</a><br><br><br>
 		<?php endif; ?>
 		</div>
+		<p>Calificacion de nuestros clientes : </p><br>
+		<p><?=$review->getProductRating($product->id)?> sobre 10</p><br><br><br>
+
+		<?=$review->printReviewsByProduct($product->id)?>
+
 	</div>
 <?php else: ?>
 	<h1>El producto no existe</h1>
 <?php endif; ?>
+
+

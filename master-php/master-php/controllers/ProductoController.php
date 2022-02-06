@@ -1,5 +1,6 @@
 <?php
 require_once 'models/Producto.php';
+require_once 'models/Usuario.php';
 require_once 'helpers/direccion_habitual.php';
 require_once 'vendor/autoload.php';
 
@@ -20,8 +21,9 @@ class productoController{
 
 			$producto = new Producto();
 			$producto -> setId($id);
-
-			$product  = $producto->getOne();
+			$product    = $producto->getOne();
+			$review = new Review();
+			$review->id_producto = $product->id;
 
 		}
 		require_once 'views/producto/ver.php';
@@ -29,9 +31,11 @@ class productoController{
 
 	public function gestion(){
 		Utils::isAdmin();
+		$producto             = new Producto();
+		$numeroProductosTotal = $producto->getTotalNumberOfProducts();
+		if(!isset($_GET['pagina']))$_GET['pagina'] = 1;
+		$productos            = $producto->getAllPaginated($_GET['pagina'],$numeroProductosTotal);
 
-		$producto   = new Producto();
-		$productos  = $producto->getAll();
 
 		require_once 'views/producto/gestion.php';
 	}
@@ -151,10 +155,13 @@ class productoController{
 			$auxProduct->setDescripcion($description);
 			if($image == false) $image = $auxProduct->getImagen();
 			$auxProduct->setImagen($image);
-			if($auxProduct->edit())$_SESSION['change_product'] = "cambio ok";
-		}
+			if($auxProduct->edit()){
+				$_SESSION['producto'] = "complete";
+				header("Location:".base_url.'producto/gestion');
+				return;
+			}
 		header("Location:".base_url.'producto/editar&id='.$_REQUEST['id']);
-
+		}
 	}
 
 	public function eliminar(){
@@ -177,6 +184,29 @@ class productoController{
 		}
 
 		header('Location:'.base_url.'Producto/gestion');
+	}
+
+	public function updateReview(){
+
+		if(isset($_POST['accion'])){
+			if ($this->checkReview()) {
+				$review = new Review();
+				$review->id_usuario  = $_POST['usuarioId'];
+				$review->id_producto = $_POST['productoId'];
+				$review->review      = $_POST['reviewProducto'];
+				$review->nota        = $_POST['notaReview'];
+
+				if($review->updateReview()){
+					header("Location:".base_url."pedido/detalle&id=".$_POST['pedidoId']);
+					die();
+				}
+			$_SESSION['change_review'] = "No se ha podido añadir la review. Algo no ha ido bien";
+			echo(HISTORYBACK);
+			}
+		}
+	}
+	private function checkReview(){
+		return !empty($_POST['notaReview'])&& !empty($_POST['reviewProducto']) && $_POST['notaReview']>0 && $_POST['notaReview']<=10;
 	}
 
 }

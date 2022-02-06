@@ -5,10 +5,13 @@
     padding: 0px;
     margin: 0px;
     font-family: sans-serif, Helvetica, Arial;
+
 }
+
 
 body{
     background: url(../img/bg.png);
+
 }
 
 a{
@@ -52,11 +55,18 @@ table tr td img{
 
 /*CONTAINER*/
 #container{
-   width: 80%;
+
    margin: 0px auto;
    box-shadow: 0px 0px 10px gray;
    background: white;
 }
+
+/* CAROUSEL HEADER */
+.carousel-item{
+    height: 40rem;
+
+}
+
 
 /*HEADER*/
 
@@ -286,8 +296,20 @@ button{
     padding: 20px;
     padding-top: 0px;
 }
-
-/*PRODUCTOS*/
+#central .review {
+    max-width: 50%;
+    border: 1px solid black;
+}
+/* DESTACADOS */
+.card-columns {
+    @include media-breakpoint-only(lg) {
+      column-count: 4;
+    }
+    @include media-breakpoint-only(xl) {
+      column-count: 4;
+    }
+  }
+/* PRODUCTOS*/
 .product{
     width: 30%;
     float:left;
@@ -306,10 +328,10 @@ button{
     color:#555;
 }
 
-.product img{
+/* .product img{
     height:170px;
     margin-bottom: 10px;
-}
+} */
 
 .img_carrito{
     height: 80px;
@@ -363,6 +385,7 @@ button{
     width: 200px;
     text-align: center;
 }
+
 
 
 
@@ -424,3 +447,5 @@ button{
     padding:2px;
     margin: 7px;
 }
+
+

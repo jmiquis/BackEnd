@@ -7,9 +7,9 @@
 <a href="<?=base_url?>producto/salesManagement" class="button button-small">Gestión de ventas</a>
 
 <?php if(isset($_SESSION['producto']) && $_SESSION['producto'] == 'complete'): ?>
-	<strong class="alert_green">El producto se ha creado correctamente</strong>
+	<strong class="alert_green">Operacion Ok</strong>
 <?php elseif(isset($_SESSION['producto']) && $_SESSION['producto'] != 'complete'): ?>
-	<strong class="alert_red">El producto NO se ha creado correctamente</strong>
+	<strong class="alert_red">Fallo en operacion</strong>
 <?php endif; ?>
 <?php Utils::deleteSession('producto'); ?>
 
@@ -50,3 +50,4 @@
 		</tr>
 	<?php endwhile; ?>
 </table>
+<?=Utils::showNumberOfPages($numeroProductosTotal,base_url."producto/gestion",ITEMSPERPAGE);

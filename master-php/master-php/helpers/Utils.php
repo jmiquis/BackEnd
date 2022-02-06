@@ -1,5 +1,5 @@
 <?php
-
+require_once 'models/Producto.php';
 class Utils{
 
 	public static function deleteSession($name){
@@ -126,7 +126,7 @@ class Utils{
 	public static function getNoStockProducts(){
 		return Self::getDatabaseElements("SELECT * FROM productos WHERE stock =0",true);
 	}
-	
+
 
 
 
@@ -221,5 +221,28 @@ class Utils{
 		return number_format(($cost+($cost/100)*20),2);
 
 	}
+
+	public static function checkCarritoBeforeOrder():bool{
+		if(!isset($_SESSION['carrito']))return false;
+
+		for($i = 0; $i<count($_SESSION['carrito']);$i++) {
+			$productoAux=new Producto();
+			$productoChecked = $productoAux->getOneProduct($_SESSION['carrito'][$i]['id_producto']);
+			if($productoChecked->getStock()<$_SESSION['carrito'][$i]['unidades']) return false;
+		}
+		return true;
+	}
+
+	public static function showNumberOfPages($totalResults,$pageUrl,$desiredShownResults=1){
+
+		$numberOfPages = ceil($totalResults/$desiredShownResults);
+		$msg ="<table><tr>";
+		for ($i=0; $i < $numberOfPages ; $i++) {
+			$msg .= "<td><a href=$pageUrl&pagina=".($i+1)." class='button button-gestion'>".($i+1)."</a></td>";
+		}
+		$msg.="</tr><table>";
+		return $msg;
+	}
+
 }
 

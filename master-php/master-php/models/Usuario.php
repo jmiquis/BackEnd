@@ -16,6 +16,9 @@ class Usuario{
 	public function __construct() {
 		$this->db = Database::connect();
 	}
+	function getDb(){
+		return $this->db;
+	}
 
 	function getId() {
 		return $this->id;
@@ -175,6 +178,10 @@ $statementDeleteUser = $this->db->prepare("DELETE FROM usuarios WHERE id=?");
 		$user = $this->db->query("SELECT * FROM usuarios WHERE id = $userId");
 
 		$user = $user->fetch_object("Usuario");
+		if ($user == null){
+			header("Location:".base_url);
+			die();
+		}
 		return $user;
 
 	}

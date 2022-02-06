@@ -40,15 +40,26 @@ class pedidoController{
 				$pedido -> setDireccion   ($direccion);
 				$pedido -> setCoste           ($coste);
 
-				$save = $pedido->save();
+				//transaccion
 
-				// Guardar linea pedido
-				$save_linea = $pedido->save_linea();
+				$user->getDb()->begin_transaction();
 
-				if($save && $save_linea){
-					$_SESSION['pedido'] = "complete";
+				if(Utils::checkCarritoBeforeOrder()){
+					$save = $pedido->save();
+					// Guardar linea pedido
+					$save_linea = $pedido->save_linea();
 
+					$user->getDb()->commit();
+
+					$user->getDb()->close();
+
+					//fin transaccion
+					if($save && $save_linea){
+						$_SESSION['pedido'] = "complete";
+						unset($_SESSION['carrito']);
+					}
 				}else{
+					$user->getDb()->rollback();
 					$_SESSION['pedido'] = "failed";
 				}
 
@@ -111,6 +122,9 @@ class pedidoController{
 			$usuario   = New Usuario();
 			$idUsuario = $pedido ->usuario_id;
 			$usuario   = $usuario   -> getOneUser($idUsuario);
+			$review    = new Review();
+			$review->id_usuario=$usuario->getId();
+			$arrayReviewsPendientes = $review->getPendingReviewsByUser($_SESSION['identity']->id);
 
 			require_once 'views/pedido/detalle.php';
 		}else{
