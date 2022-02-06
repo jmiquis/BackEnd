@@ -21,7 +21,7 @@
     <p>producto en oferta</p>
     <select name="deal" >
         <option value="si" <?=($pro->getOferta()=="si")?"selected":""?>>si</option>
-        <option value="no" <?=($pro->getOferta())=="no"?"selected":""?>>no</option>
+        <option value="no" <?=($pro->getOferta()=="no")?"selected":""?>>no</option>
     </select>
 
     <img src="<?= base_url?>uploads/images/<?=$pro->getImagen()?>" alt="imagen producto" style="width: 10rem;">

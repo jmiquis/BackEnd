@@ -134,8 +134,8 @@ class productoController{
 		Utils::isAdmin();
 		$name            = isset($_POST['productName'])                   ? $_POST['productName'] : false;
 		$category_id     = isset($_POST['category'])                      ? $_POST['category']    : false;
-		$cost            = (isset($_POST['cost']) && $_POST['cost']>0 )   ? $_POST['cost']      : false;
-		$stock           = (isset($_POST['stock']) && $_POST['stock']>0)  ? $_POST['stock']       : false;
+		$cost            = (isset($_POST['cost']) && $_POST['cost']>=0 )   ? $_POST['cost']      : false;
+		$stock           = (isset($_POST['stock']) && $_POST['stock']>=0)  ? $_POST['stock']       : false;
 		$deal            = isset($_POST['deal'])                          ? $_POST['deal'    ]    : false;
 		$description     = isset($_POST['description'])                   ? $_POST['description'] : $name;
 		$image    = false;

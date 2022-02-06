@@ -1,5 +1,7 @@
 USE tienda_master;
 
+UPDATE usuarios SET imagen='largaroja.jpg';
+
 CREATE TABLE direccion_habitual
 (
     id_direccion INT PRIMARY KEY AUTO_INCREMENT,
@@ -10,6 +12,9 @@ CREATE TABLE direccion_habitual
 
 ALTER TABLE usuarios ADD COLUMN id_direccion_habitual INT;
 ALTER TABLE usuarios ADD CONSTRAINT fk_usuarios_direccion_habitual FOREIGN KEY (id_direccion_habitual) REFERENCES direccion_habitual(id_direccion);
+
+INSERT INTO direccion_habitual VALUES(1,'Madrid','Madrid','calle bravo murillo 333');
+UPDATE usuarios set id_direccion_habitual=1;
 
 CREATE TABLE review
 (

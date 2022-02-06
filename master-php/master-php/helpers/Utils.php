@@ -100,7 +100,7 @@ class Utils{
 	}
 
 	public static function checkFreeOrdersUser():array{
-		return Self::getDatabaseElements("SELECT DISTINCT usuario_id FROM pedidos WHERE  estado like 'confirm' or estado like 'preparation'");
+		return Self::getDatabaseElements("SELECT DISTINCT usuario_id FROM pedidos");
 	}
 
 	public static function getAllOrderStatus():array  {
@@ -110,7 +110,7 @@ class Utils{
 		return Self::getDatabaseElements("SELECT DISTINCT categoria_id FROM productos");
 	}
 	public static function getProductsInOpenOrders(){
-		return Self::getDatabaseElements("SELECT DISTINCT l.producto_id FROM lineas_pedidos l, pedidos p WHERE l.pedido_id=p.id AND p.estado not like 'sended';");
+		return Self::getDatabaseElements("SELECT DISTINCT l.producto_id FROM lineas_pedidos l, pedidos p;");
 	}
 	public static function getMostSoldProduct(){
 		return Self::getDatabaseElements("SELECT p.*,sum(unidades) as ventas

@@ -10,8 +10,6 @@ class Producto{
 	private $oferta;
 	private $fecha;
 	private $imagen;
-	private $nota;
-	private $num_votantes=0;
 
 	private $db;
 
@@ -91,19 +89,6 @@ class Producto{
 		$this->imagen = $imagen;
 	}
 
-	function setNota(int $nota){
-		$this->nota = $nota;
-	}
-
-	function getNota(){
-		return $this->nota;
-	}
-
-	function FunctionName(){
-		# code...
-	}
-
-
 	public function getAllPaginated($pageNumber){
 
 		$init = ($pageNumber-1)*ITEMSPERPAGE;
@@ -176,7 +161,7 @@ class Producto{
 	}
 
 	public function save(){
-		$sql = "INSERT INTO productos VALUES(NULL, {$this->getCategoria_id()}, '{$this->getNombre()}', '{$this->getDescripcion()}', {$this->getPrecio()}, {$this->getStock()}, 'no', CURDATE(), '{$this->getImagen()}',0);";
+		$sql = "INSERT INTO productos VALUES(NULL, {$this->getCategoria_id()}, '{$this->getNombre()}', '{$this->getDescripcion()}', {$this->getPrecio()}, {$this->getStock()}, 'no', CURDATE(), '{$this->getImagen()}');";
 		$save = $this->db->query($sql);
 
 		$result = false;

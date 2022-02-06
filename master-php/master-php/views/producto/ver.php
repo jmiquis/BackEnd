@@ -1,4 +1,6 @@
 
+
+
 <?php if (isset($product)): ?>
 	<h1><?= $product->nombre ?></h1>
 	<div id="detail-product">
