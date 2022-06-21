@@ -2,5 +2,8 @@
     "require": {
         "google/cloud-translate": "^1.12",
         "statickidz/php-google-translate-free": "^1.2"
+    },
+    "require-dev": {
+        "behat/behat": "^3.0"
     }
 }
